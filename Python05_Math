@@ -1,0 +1,83 @@
+## Python
+## Sets
+
+
+##  Polar Coordinates
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# option A
+# from cmath import polar
+# z = complex(input())
+# print(*polar(z), sep='\n')
+
+# option B
+from cmath import *
+z = complex(input())
+print(abs(z), phase(z), sep='\n')
+
+
+## Find Angle MBC
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+from math import degrees, atan2
+
+AB = int(input())
+BC = int(input())
+result = round(degrees(atan2(AB, BC)))
+print(str(result) + '°')
+
+
+## Triangle Quest 2
+for i in range(1,int(input())+1): #More than 2 lines will result in 0 score. Do not leave a blank line also
+    print((10**(i)//9)**2)
+
+# floor_division
+print((10**(i)//9)**2) 
+
+# converted normal division's result into floor
+print(int(10**i/9)**2) 
+
+# same output but failed (invalid string literal found)
+print( *range(1,i), *range(i,0,-1), sep='')
+
+# same output but failed (only 1 print statement is allowed)
+my_list = [1, 121, 12321, 1234321, 123454321, 12345654321, 1234567654321, 123456787654321, 12345678987654321, 12345678910987654321]
+n = int(input())
+for i in range(0, n): 
+    print(my_list[i])
+
+
+## Mod Divmod
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+numerator = int(input())
+denominator = int(input())
+print(numerator // denominator)
+print(numerator % denominator)
+print(divmod(numerator, denominator))
+
+
+## Power - Mod Power
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+a,b,m = [int(input()) for _ in range(3)]
+print(pow(a,b))
+print(pow(a,b,m))
+
+
+## Integers Come In All Sizes
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+a,b,c,d = [int(input()) for _ in range(4)]
+print(pow(a,b) + pow(c,d))
+
+
+## Triangle Quest
+# using only arithmetic operations, a single for loop and print statement
+for i in range(1,int(input())): #More than 2 lines will result in 0 score. Do not leave a blank line also
+    print( ( (10**i)//9 )*i )      # (10**i)//9 gives required seq of 1's
+
+# alternative
+print(int(i*(10**i-1)/9))
+  
+# same output but failed (str is not allowed)
+print(''.join([str(i)]*i))
+
+
+## end ##

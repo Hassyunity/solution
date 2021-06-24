@@ -1,0 +1,352 @@
+## HackerRank
+## ProjectEuler+
+
+
+
+
+## Project Euler #1: Multiples of 3 and 5
+#!/bin/python3
+import sys
+
+def sum_ap(n, d):
+    n = (n-1)//d
+    return d*n*(n+1)
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    total = sum_ap(n,3) + sum_ap(n,5) - sum_ap(n,15)
+    print(int(int(total) >> 1))
+
+
+
+
+## Project Euler #2: Even Fibonacci numbers
+"""
+Fibonacci series = 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, …
+"""
+#!/bin/python3
+import sys
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    total = 0
+    a = 0
+    b = 1
+    while b < n:
+        if b%2==0:    #even
+            total += b
+        a,b = b,a+b
+    print(total)
+    
+    
+
+
+## Project Euler #3: Largest prime factor
+"""
+Any number can be broken down to a product of it's prime factors. For example, 100 = 2x2x5x5. So let's start with 2 and divide the number as long as it's divisible by 2. Then we move onto 3 and 4. We keep doing this until the number is not divisible anymore and just print it. In this method, there is no reason to check for primes. If a number is divisible by 4, say, we would have already divided it by 2 twice. And the final number we are left with would be the largest prime factor.
+We just have a single loop going to sqrt(N). So the complexity of this code is O(sqrtN).
+"""
+#!/bin/python3
+import sys
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    i=2
+    while i <= n**0.5:
+        if n%i==0:
+            n = n//i
+        else:
+            # edge case is i==2 where we add 1
+            if i==2:
+                i=3
+            else:
+                i+=2
+    print(n)
+
+
+
+
+## Project Euler #4: Largest palindrome product
+#!/bin/python3
+import sys
+
+palindromelist = []
+for i in range(100, 1000):
+    for j in range(100, 1000):
+        a = i * j
+        if str(a) == str(a)[::-1] and a not in palindromelist:
+            palindromelist.append(a)
+palindromelist.sort()
+length = len(palindromelist)
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    for i in range(length - 1, -1, -1):
+        if palindromelist[i] < n:
+            print(palindromelist[i])
+            break
+
+
+
+
+## Project Euler #5: Smallest multiple
+"""
+5342931457063200
+5342931457063200
+5342931457063200
+5342931457063200
+144403552893600
+144403552893600
+144403552893600
+144403552893600
+144403552893600
+72201776446800
+2329089562800
+2329089562800
+80313433200
+80313433200
+26771144400
+26771144400
+5354228880
+5354228880
+232792560
+232792560
+232792560
+232792560
+12252240
+12252240
+720720
+360360
+360360
+360360
+27720
+27720
+2520
+2520
+840
+420
+60 = divisible by 1,2,3,4,5,6
+60 = divisible by 1,2,3,4,5
+12 = divisible by 1,2,3,4
+6 = divisible by 1,2,3
+2 = divisible by 1,2
+"""
+#!/bin/python3
+import sys
+
+# Option 1
+from functools import reduce
+def gcd(x,y):
+    while y!=0:
+        x,y=y,x%y
+    return x
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    result = reduce(lambda x,y: x*y/gcd(x,y), range(1,n+1))
+    print(int(result))
+
+# Option 2
+def lcm(a,b) :
+    for i in range(1,a + 1):
+        if (i*b)%a == 0:
+            return i*b
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    result = 1
+    for i in range(2, n+1):
+        result = lcm(result, i)
+    print(result)
+
+
+
+
+## Project Euler #6: Sum square difference
+"""
+2 formulas:
+1) sum of first n natural numbers is = n*(n+1)/2
+2) sum of first n natural number^2's is : : n*(n+1)*(2*n+1)/6
+"""
+#!/bin/python3
+import sys
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    square_of_sum = (n*(n+1)//2)**2
+    sum_of_squares = n*(n+1)*(2*n+1)//6
+    print(square_of_sum - sum_of_squares)
+    
+
+
+
+## Project Euler #7: 10001st prime
+#!/bin/python3
+import sys
+
+prime_occurences = [0,2,3]
+
+def isPrime(num):
+    i = 2
+    while i <= int(num**0.5)+1:
+        if num % i == 0 and num != i:
+            return False
+        i += 1
+    return True
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    try:
+        if prime_occurences[n]:
+            print(prime_occurences[n])
+    except:
+        ptr = len(prime_occurences)
+        i = ptr - 1
+        num = prime_occurences[i]+1
+        while ptr <= n:
+            if isPrime(num):
+                prime_occurences.append(num)
+                ptr += 1
+            num += 1
+        print(prime_occurences[n])
+        
+
+
+
+## Project Euler #8: Largest product in a series
+#!/bin/python3
+import sys
+
+t = int(input().strip())
+for a0 in range(t):
+    n,k = input().strip().split(' ')
+    n,k = [int(n),int(k)]
+    num = input().strip()   #this is a string
+    result = []
+    for i in range(n-k):
+        multiply = 1
+        for j in num[i:i+k]:
+            multiply *= int(j)
+        result.append(multiply)
+    print(max(result))
+
+
+
+
+## Project Euler #9: Special Pythagorean triplet
+#!/bin/python3
+import sys
+
+t = int(input().strip())
+for a0 in range(t):
+    n = int(input().strip())
+    result = -1
+    for a in range(3, (n//3)+1):
+        b = (n**2 - 2*a*n)//(2*n - 2*a)
+        c = n - b - a
+        if a**2 + b **2 == c**2:
+            if a*b*c > result:
+                result = a*b*c
+    print(result)
+
+
+
+
+## Project Euler #10: Summation of primes
+"""
+There is a very efficient algorithm called the Sieve of Eratosthenes that is very simple. This alorithm will help you create an array of booleans of size 1000000 that will tell you whether a number is a prime or not.
+https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+Create another array that holds the sum of all of the prime numbers less than the index
+"""
+#!/bin/python3
+import sys
+
+limit = 1000000
+sum_prime_arr = [0] * limit
+prime_arr = [True] * limit
+prime_arr[0] = prime_arr[1] = False
+for i, isprime in enumerate(prime_arr):
+    if isprime:
+        sum_prime_arr[i] = sum_prime_arr[i-1] + i
+        for n in range(i*i, limit, i):
+            prime_arr[n] = False
+    else:
+        sum_prime_arr[i] = sum_prime_arr[i-1]
+
+t = int(input().strip())
+for prime_arr0 in range(t):
+    n = int(input().strip())
+    print(sum_prime_arr[n])
+    
+
+
+
+## Project Euler #11: Largest product in a grid
+"""
+This can be done without boundary checking by just making the 2D array 26 columns by 23 rows, leaving zeroes to the bottom, left, and right. Then you can check four directions (right, down, diagonal right and down, and diagonal left and down) for each value and take the max to get your answer.
+"""
+#!/bin/python3
+import sys
+
+g = []
+for _ in range(20):
+    grid_t = [0,0,0]
+    grid_t.extend([int(x) for x in input().split()])
+    grid_t.extend([0,0,0])
+    g.append(grid_t)
+pad = [0]*26
+for _ in range(3):
+    g.append(pad)
+m = []
+for r in range(20):
+    for c in range(3,23):
+        m1 = g[r][c]*g[r][c+1]*g[r][c+2]*g[r][c+3]
+        m2 = g[r][c]*g[r+1][c]*g[r+2][c]*g[r+3][c]
+        m3 = g[r][c]*g[r+1][c+1]*g[r+2][c+2]*g[r+3][c+3]
+        m4 = g[r][c]*g[r+1][c-1]*g[r+2][c-2]*g[r+3][c-3]
+        m.append(max(m1,m2,m3,m4))
+print(max(m))
+
+
+
+
+## Project Euler #12: Highly divisible triangular number
+
+
+
+
+
+
+
+
+
+
+## Project Euler #81: Path sum: two ways
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+ar = []
+ar2 = []
+for a in range(n):
+    ar.append([int(x) for x in input().split()])
+    ar2.append([0 for x in range(n)])
+
+ar2[0][0]=ar[0][0]
+
+for i in range(1,n):
+    ar2[0][i]=ar2[0][i-1]+ar[0][i]
+    ar2[i][0]=ar2[i-1][0]+ar[i][0]
+    
+for i in range(1,n):
+    for j in range(1,n):
+        ar2[i][j]=min(ar2[i][j-1],ar2[i-1][j])+ar[i][j]
+print(ar2[n-1][n-1])
+
+(work in progress)
+
+## end ##

@@ -1,0 +1,855 @@
+## Python
+## Regex and Parsing
+
+
+## Detect Floating Point Number
+"""
+eg, 
+4.0O0 = False (there is a letter 'O', not zero)
+-1.00 = True
++4.54 = True
+SomeRandomStuff = False
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+# Condensed version:
+import re
+for _ in range(int(input())):
+    # print(bool(re.match(r'^[-+]?[0-9]*\.[0-9]+$', input())))
+    # print(bool(re.search(r'^[+-]?\d{0,}\.\d{1,}$',input())))
+    print(bool(re.match(r'^[-+]?\d*\.\d+$', input())))
+
+# # Simple readable version:
+# import re
+# n = int(input())
+# for _ in range(n):
+#     str = input()
+#     if (re.match(r'^[-+]?[0-9]*\.[0-9]+$', str)):
+#         print(True)
+#     else:
+#         print(False)
+
+
+## Re.split()
+"""
+Spliting 100,000,000.000 to 
+100
+000
+000
+000
+"""
+regex_pattern = r'[.,]+'	# Do not delete 'r'.
+import re
+print("\n".join(re.split(regex_pattern, input())))
+
+# # Option 2
+# import re
+# print(*filter(None, re.split(r'[.,]+', input())), sep='\n')
+
+# # Option 3
+# import re
+# print(*re.split(r'[.,]+', input().strip('., ')), sep='\n')
+
+# # Option 4
+# import re
+# print(*re.split('[,.]+', input()), sep='\n')
+
+
+## Group(), Groups() & Groupdict()
+"""
+>>> import re
+>>> m = re.match(r'(\w+)@(\w+)\.(\w+)','username@hackerrank.com')
+>>> m.group(0)       # The entire match 
+'username@hackerrank.com'
+>>> m.group(1)       # The first parenthesized subgroup.
+'username'
+>>> m.group(2)       # The second parenthesized subgroup.
+'hackerrank'
+>>> m.group(3)       # The third parenthesized subgroup.
+'com'
+>>> m.group(1,2,3)   # Multiple arguments give us a tuple.
+('username', 'hackerrank', 'com')
+>>> m.groups()
+('username', 'hackerrank', 'com')
+
+>>> m = re.match(r'(?P<user>\w+)@(?P<website>\w+)\.(?P<extension>\w+)','myname@hackerrank.com')
+>>> m.groupdict()
+{'website': 'hackerrank', 'user': 'myname', 'extension': 'com'}
+"""
+# Given string S, find the first occurrence of an alphanumeric character in S.
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# import re
+# m = re.search(r'([a-zA-Z0-9])\1+', input().strip())
+# print(m.group(1) if m else -1)
+
+# # Option 2
+# s=list(input())
+# for i in range(len(s)):
+#     try:
+#         if s[i]==s[i+1]:
+#             if  s[i].isalnum():
+#                 print(s[i])
+#                 break
+#     except:
+#         print("-1")
+
+# Option 3
+import re
+reg = re.match(r".*?([a-zA-Z0-9]+)\1", input())
+if reg:
+    print(reg.group(1))
+else:
+    print(-1)
+
+
+## Re.findall() & Re.finditer()
+"""
+The expression re.findall() returns all the non-overlapping matches of patterns in a string as a list of strings.
+>>> import re
+>>> re.findall(r'\w','http://www.hackerrank.com/')
+['h', 't', 't', 'p', 'w', 'w', 'w', 'h', 'a', 'c', 'k', 'e', 'r', 'r', 'a', 'n', 'k', 'c', 'o', 'm']
+
+The expression re.finditer() returns an iterator yielding MatchObject instances over all non-overlapping matches for the re pattern in the string.
+>>> import re
+>>> re.finditer(r'\w','http://www.hackerrank.com/')
+<callable-iterator object at 0x0266C790>
+>>> map(lambda x: x.group(),re.finditer(r'\w','http://www.hackerrank.com/'))
+['h', 't', 't', 'p', 'w', 'w', 'w', 'h', 'a', 'c', 'k', 'e', 'r', 'r', 'a', 'n', 'k', 'c', 'o', 'm']
+
+given a string S consisting of alphanumeric characters, spaces and symbols(+,-).
+Your task is to find all the substrings of S that contains 2 or more vowels, located in between 2 consonants
+eg. S = 'rabcdeefgyYhFjkIoomnpOeorteeeeet'
+Output:
+ee
+Ioo
+Oeo
+eeeee
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# import re
+# v = 'aeiou'
+# c = 'qwrtypsdfghjklzxcvbnm'
+# m = re.findall(r'(?<=[%s])([%s]{2,})[%s]' % (c, v, c), input(), flags = re.I)
+# print('\n'.join(m or ['-1']))
+
+# # Option 2
+# import re
+# c = '[qwrtypsdfghjklzxcvbnm]'
+# m = re.findall('(?<=' + c +')([aeiou]{2,})' + c, input(), re.I)
+# print('\n'.join(m or ['-1']))
+
+# # Option 3
+# import re
+# regex = re.findall('(?<=[^AEIOUaeiou])([AEIOUaeiou]{2,})[^AEIOUaeiou]', input().strip())
+# print('\n'.join(regex) if regex else -1)
+
+# Option 4
+import re
+x = input() 
+v = re.findall(r'(?<=[^AEIOUaeiou])([AEIOUaeiou]{2,})[^AEIOUaeiou]', x)
+y = ('\n'.join(v))
+if v: 
+    print(y) 
+else: 
+    print(-1)
+"""
+v =    # assign to v, which is a list
+re.findall(r'   # to find all relevant format
+(?<=[^AEIOUaeiou])    # any char in front that is not vowel
+([AEIOUaeiou]{2,})    # capture {2,} ie, 2 or more vowels
+[^AEIOUaeiou]    # not vowel
+', x)     # find all relevant format in input str x
+"""
+
+
+## Re.start() & Re.end()
+"""
+These expressions return the indices of the start and end of the substring matched by the group.
+>>> import re
+>>> m = re.search(r'\d+','1234')
+>>> m.end()
+4
+>>> m.start()
+0
+
+You are given a string S.
+Your task is to find the indices of the start and end of string k in S.
+eg. 
+aaadaa
+aa
+Output:
+(0, 1)  
+(1, 2)
+(4, 5)
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# S = input()
+# k = input()
+# import re
+# pattern = re.compile(k)
+# r = pattern.search(S)
+# if not r: 
+#     print('(-1, -1)')
+# while r:
+#     print('({0}, {1})'.format(r.start(), r.end() - 1))
+#     r = pattern.search(S, r.start() + 1)
+
+# Option 2
+import re 
+S = input()
+k = input()
+if re.search(k, S)==None:    # none matches
+    print( (-1, -1) )
+else:      # >=1 matches
+    for i in range(len(S)-len(k)+1):
+        if S[i:i+len(k)]==k:
+            print((i, i+len(k)-1))
+
+
+## Regex Substitution
+"""
+The re.sub() method returns the modified string as an output.
+re.sub( a, becomes b, input)
+#Squaring numbers
+import re
+def square(match):
+    number = int(match.group(0))
+    return str(number**2)
+print re.sub(r"\d+", square, "1 2 3 4 5 6 7 8 9")
+
+Output:
+1 4 9 16 25 36 49 64 81
+
+#remove comment
+import re
+html = """
+<head>
+<title>HTML</title>
+</head>
+<object type="application/x-flash" 
+  data="your-file.swf" 
+  width="0" height="0">
+  <!-- <param name="movie"  value="your-file.swf" /> -->
+  <param name="quality" value="high"/>
+</object>  """
+print re.sub("(<!--.*?-->)", "", html) 
+
+Output
+<head>
+<title>HTML</title>
+</head>
+<object type="application/x-flash" 
+  data="your-file.swf" 
+  width="0" height="0">
+
+  <param name="quality" value="high"/>
+</object>
+
+You are given a text of N lines. The text contains && and || symbols.
+Your task is to modify those symbols to the following:
+&& →  and
+|| →  or
+Both && and || should have a space " " on both sides
+
+Example:
+11
+a = 1;
+b = input();
+
+if a + b > 0 && a - b < 0:
+    start()
+elif a*b > 10 || a/b < 1:
+    stop()
+print set(list(a)) | set(list(b)) 
+#Note do not change &&& or ||| or & or |
+#Only change those '&&' which have space on both sides.
+#Only change those '|| which have space on both sides (this has space on 1 side).
+
+Output:
+a = 1;
+b = input();
+
+if a + b > 0 and a - b < 0:
+    start()
+elif a*b > 10 or a/b < 1:
+    stop()
+print set(list(a)) | set(list(b)) 
+#Note do not change &&& or ||| or & or |
+#Only change those '&&' which have space on both sides.
+#Only change those '|| which have space on both sides.  
+
+"""
+# # Option 1
+# import re
+# N = int(input())
+# for i in range(N):
+#     print(re.sub(r'(?<= )(&&|\|\|)(?= )', lambda x: 'and' if x.group() == '&&' else 'or', input()))
+# # (&&|\|\|) means (&& or ||)
+# # since | is a special character in re, escape each of them \|\| to get ||
+
+# # Option 2
+# import re
+# for _ in range(int(input())):
+#     s = input()
+#     s = re.sub(r' &&(?= )', ' and', s)
+#     s = re.sub(r' \|\|(?= )', ' or', s)
+#     print(s)
+
+# Option 3
+import re
+def f(x): 
+    return 'and' if x.group(0) == '&&' else 'or'
+for _ in range(int(input())):
+    s = input()
+    print(re.sub(r'(?<= )([&|])\1(?= )', f, s))
+
+
+## Validating Roman Numerals
+# You are given a string, and you have to validate whether it's a valid Roman numeral. If it is valid, print True. Otherwise, print False. Roman numeral between 1 and 3999.
+
+# # Option 1
+# regex_pattern = r"(?<=^)M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})(?=$)"
+
+# # Option 2
+# regex_pattern = r"(M{1,3})?((C{1,3})|C(D|M)|D(C{0,3})|M)?((X{1,3})|X(C|L)|L(X{0,3})|C)?((I{1,3})|I(V|X)|V(I{0,3})|X)\b"
+
+# # Option 3
+# regex_pattern = r"^(M{0,3}CMXCIX|M{0,3})(D{0,1}?C{0,3}|CD)(L{0,1}?X{0,3}|XL)(V{0,1}?I{0,3}|IV)$"
+
+# Option 4
+# thousand = M{0,3}
+# hundred = (C[MD]|D?C{0,3})
+# ten = (X[CL]|L?X{0,3})
+# digit = (I[VX]|V?I{0,3})
+regex_pattern = r"^M{0,3}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+
+import re
+print(str(bool(re.match(regex_pattern, input()))))
+
+
+## Validating phone numbers
+# A valid mobile number is a ten digit number starting with a 7, 8 or 9.
+
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# # [789]\d{9}$ checks 1st digit is 7,8,9, plus next 9 are digits (total 10 digits)
+# import re
+# [print('YES' if re.match(r'[789]\d{9}$',input()) else 'NO') for _ in range(int(input()))]
+
+# # Option 2
+# import re
+# for i in range(int(input())):
+#     if re.match(r'[789]\d{9}$', input()):   
+#         print('YES') 
+#     else:  
+#         print('NO')
+
+# # Option 3
+# import re
+# for _ in range(int(input())):
+#     s = input().strip()
+#     print('YES' if (bool(re.search(r'^[789]', s)) and bool(re.search(r'^(\d){10}$',s))) else 'NO')
+
+# Option 4 (without regex)
+check_list = '789'
+for i in range(int(input())):
+    num = input()
+    if num.isdigit() and num[0] in check_list and len(num)==10:
+        print('YES') 
+    else:
+        print('NO')
+
+
+## Validating and Parsing Email Addresses
+"""
+A valid email address is composed of a username, domain name, and extension assembled in this format: username@domain.extension
+example:
+import email.utils
+print email.utils.parseaddr('DOSHI <DOSHI@hackerrank.com>')
+print email.utils.formataddr(('DOSHI', 'DOSHI@hackerrank.com'))
+
+output:
+('DOSHI', 'DOSHI@hackerrank.com')
+DOSHI <DOSHI@hackerrank.com>
+
+Input n lines of name and an email address as two space-separated values following this format:
+name <user@email.com>
+Output to print the space-separated name and email address pairs containing valid email addresses only. Each pair must be printed on a new line in the following format:
+name <user@email.com>
+
+Sample Input:
+2  
+DEXTER <dexter@hotmail.com>
+VIRUS <virus!@variable.:p>
+
+Sample Output:
+DEXTER <dexter@hotmail.com>
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# Note: alphanumeric \w includes [A-Za-z0-9_]
+
+# # Option 1
+# import re
+# n = int(input())
+# for _ in range(n):
+#     x, y = input().split(' ')
+#     m = re.match(r'<[A-Za-z](\w|-|\.|_)+@[A-Za-z]+\.[A-Za-z]{1,3}>', y)
+#     if m:
+#         print(x,y)
+
+# Option 2
+import re
+import email.utils as email
+n = int(input())
+regex = r'^[a-zA-Z][\w\.-]+@[a-zA-Z]+\.[a-zA-Z]{1,3}$'
+for _ in range(n):
+    e = input()
+    p = email.parseaddr(e)
+    if re.search(regex, p[1]):
+        print(email.formataddr(p))
+
+
+## Hex Color Code
+"""
+You are given N lines of CSS code. Your task is to print all valid Hex Color Codes, in order of their occurrence from top to bottom.
+
+Sample Input:
+11
+#BED
+{
+    color: #FfFdF8; background-color:#aef;
+    font-size: 123px;
+    background: -webkit-linear-gradient(top, #f9f9f9, #fff);
+}
+#Cab
+{
+    background-color: #ABC;
+    border: 2px dashed #fff;
+}   
+
+Sample Output:
+#FfFdF8
+#aef
+#f9f9f9
+#fff
+#ABC
+#fff
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# Option 1
+import re
+N = int(input())
+for i in range(N):
+    s = input()
+    x = s.split()
+    if len(x)>1  and  '{' not in x:
+        x = re.findall(r'#[a-fA-F0-9]{3,6}',s)
+        [print(i) for i in x]
+
+# # Option 2
+# import re, sys
+# [print(j) for i in sys.stdin for j in re.findall('[\s:](#[a-f0-9]{6}|#[a-f0-9]{3})', i, re.I)]
+
+
+## HTML Parser - Part 1
+"""
+An HTMLParser instance is fed HTML data and calls handler methods when start tags, end tags, text, comments, and other markup elements are encountered.
+You are given an HTML code snippet of  lines.
+Your task is to print start tags, end tags and empty tags separately.
+
+Sample Input:
+2
+<html><head><title>HTML Parser - I</title></head>
+<body data-modal-target class='1'><h1>HackerRank</h1><br /></body></html>
+
+Sample Output:
+Start : html
+Start : head
+Start : title
+End   : title
+End   : head
+Start : body
+-> data-modal-target > None
+-> class > 1
+Start : h1
+End   : h1
+Empty : br
+End   : body
+End   : html
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from html.parser import HTMLParser
+# class MyHTMLParser(HTMLParser):
+#     def handle_starttag(self, tag, attrs):        
+#         print('Start :', tag)
+#         for ele in attrs:
+#             print('->',ele[0],'>',ele[1])
+#     def handle_endtag(self, tag):
+#         print('End   :', tag)
+#     def handle_startendtag(self, tag, attrs):
+#         print('Empty :', tag)
+#         for ele in attrs:
+#             print('->',ele[0],'>',ele[1])
+# parser = MyHTMLParser()
+# for _ in range(int(input())):
+#     parser.feed(input())
+
+# Option 2
+from html.parser import HTMLParser
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):
+        print('Start :', tag)
+        self.value(attrs)
+    def handle_endtag(self, tag):
+        print('End   :', tag)
+    def handle_startendtag(self, tag, attrs):
+        print('Empty :', tag)
+        self.value(attrs)
+    def value(self, attrs = None):
+        if attrs:
+            [print('->', attr, '>', val) for attr, val, in attrs]
+parser = MyHTMLParser()
+for _ in range(int(input())):
+    parser.feed(input())
+
+
+## HTML Parser - Part 2
+"""
+You are given an HTML code snippet of N lines.
+Your task is to print the single-line comments, multi-line comments and the data.
+Print the result in the following format:
+>>> Single-line Comment  
+Comment
+>>> Data                 
+My Data
+>>> Multi-line Comment  
+Comment_multiline[0]
+Comment_multiline[1]
+>>> Data
+My Data
+>>> Single-line Comment:  
+
+Sample Input:
+4
+<!--[if IE 9]>IE9-specific content
+<![endif]-->
+<div> Welcome to HackerRank</div>
+<!--[if IE 9]>IE9-specific content<![endif]-->
+
+Sample Output:
+>>> Multi-line Comment
+[if IE 9]>IE9-specific content
+<![endif]
+>>> Data
+ Welcome to HackerRank
+>>> Single-line Comment
+[if IE 9]>IE9-specific content<![endif]
+"""
+# # Option 1
+# from html.parser import HTMLParser
+# class MyHTMLParser(HTMLParser):
+#     def handle_comment(self, comment):
+#         number_of_line = len(comment.split('\n'))
+#         if number_of_line > 1:
+#             print('>>> Multi-line Comment')
+#         else:
+#             print('>>> Single-line Comment')
+#         print(comment)
+#     def handle_data(self, data):
+#         if data.strip():
+#             print(">>> Data")
+#             print(data)
+# parser = MyHTMLParser()
+# html_string = ''
+# for i in range(int(input())):
+#     html_string += input().rstrip() + '\n'
+# parser.feed(html_string)
+# parser.close()
+
+# Option 2
+from html.parser import HTMLParser
+class MyHTMLParser(HTMLParser):
+    def handle_comment(self, comment):
+        if '\n' in comment:
+            print('>>> Multi-line Comment')
+        else:
+            print('>>> Single-line Comment')
+        print(comment)
+    def handle_data(self, data):
+        if len(data) > 1: 
+            print('>>> Data', data, sep='\n')
+parser = MyHTMLParser()
+html_string = ''
+for i in range(int(input())):
+    html_string += input().rstrip() + '\n'
+parser.feed(html_string)
+parser.close()
+
+
+## Detect HTML Tags, Attributes and Attribute Values
+"""
+The first line contains an integer , the number of lines in the HTML code snippet.
+The next  lines contain HTML code.
+Print the HTML tags, attributes and attribute values in order of their occurrence from top to bottom in the snippet.
+Format your answers as explained in the problem statement.
+
+Sample Input:
+9
+<head>
+<title>HTML</title>
+</head>
+<object type="application/x-flash" 
+  data="your-file.swf" 
+  width="0" height="0">
+  <!-- <param name="movie" value="your-file.swf" /> -->
+  <param name="quality" value="high"/>
+</object>
+
+Sample Output:
+head
+title
+object
+-> type > application/x-flash
+-> data > your-file.swf
+-> width > 0
+-> height > 0
+param
+-> name > quality
+-> value > high
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from html.parser import HTMLParser
+# class MyHTMLParser(HTMLParser):
+#     def handle_starttag(self, tag, attrs):
+#         print(tag)
+#         if len(attrs) > 0:
+#             for e in attrs:
+#                 print(f"-> {e[0]} > {e[1]}")
+# html = ''
+# for line in range(int(input())):
+#     html += input().rstrip()
+#     html += '\n'
+# parser = MyHTMLParser()
+# parser.feed(html)
+
+# Option 2
+from html.parser import HTMLParser
+class MyHTMLParser(HTMLParser):
+    def handle_starttag(self, tag, attrs):        
+        print(tag)
+        for e in attrs:
+            print ('->', e[0], '>', e[1])
+parser = MyHTMLParser()
+for _ in range(int(input())):
+    parser.feed(input()) 
+
+# # Option 3
+# from html.parser import HTMLParser
+# class MyHTMLParser(HTMLParser):
+#     def handle_starttag(self, tag, attrs):
+#       print(tag)
+#       for e in attrs:
+#         print("-> {} > {}".format(e[0],e[1]))
+# MyParser = MyHTMLParser()
+# for i in range(int(input())):
+#     MyParser.feed(input())
+
+
+## Validating UID (unique identification number)
+"""
+The company has assigned you the task of validating all the randomly generated UIDs.
+A valid UID must follow the rules below:
+It must contain at least 2 uppercase English alphabet characters.
+It must contain at least 3 digits (0 - 9).
+It should only contain alphanumeric characters (a - z, A - Z & 0 - 9).
+No character should repeat.
+There must be exactly 10 characters in a valid UID.
+
+Sample Input:
+2
+B1CD102354
+B1CDEF2354
+
+Sample Output:
+Invalid
+Valid
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# import re
+# p = re.compile(r'[^a-zA-Z0-9]|([a-zA-Z0-9]).*?(?=\1)|^[a-zA-Z0-9]{,9}$|' + \
+#                 '^[a-zA-Z0-9]{11,}|(?:^[^A-Z]*?[A-Z]?[^A-Z]*$)|' + \
+#                 '(?:^[^0-9]*?[0-9]?[^0-9]*?[0-9]?[^0-9]*$)')
+# n = int(input())
+# for _ in range(n):
+#     in_ = input()
+#     print('Invalid' if p.search(in_) else 'Valid')
+
+# Option 2
+def check(message):
+    if sum(1 for c in message if c.isupper()) <2:
+        return 'Invalid'
+    elif sum(1 for c in message if c.isdigit()) <3:
+        return 'Invalid'
+    elif sum(1 for c in message if not c.isalnum()) >0:
+        return 'Invalid'
+    elif len(set(message)) != 10:   # no repeat character
+        return 'Invalid'
+    else:
+        return 'Valid'
+n = int(input()) 
+for i in range(n): 
+    s = input() 
+    print(check(s))
+
+
+## Validating Credit Card Numbers
+"""
+A valid credit card from ABCD Bank has the following characteristics:
+► It must start with a 4, 5 or 6.
+► It must contain exactly 16 digits.
+► It must only consist of digits (0-9).
+► It may have digits in groups of 4, separated by one hyphen "-".
+► It must NOT use any other separator like ' ' , '_', etc.
+► It must NOT have 4 or more consecutive repeated digits.
+Examples:
+Valid Credit Card Numbers
+4253625879615786
+4424424424442444
+5122-2368-7954-3214
+Invalid Credit Card Numbers
+42536258796157867       #17 digits in card number → Invalid 
+4424444424442444        #Consecutive digits are repeating 4 or more times → Invalid
+5122-2368-7954 - 3214   #Separators other than '-' are used → Invalid
+44244x4424442444        #Contains non digit characters → Invalid
+0525362587961578        #Doesn't start with 4, 5 or 6 → Invalid
+
+Sample Input
+6
+4123456789123456
+5123-4567-8912-3456
+61234-567-8912-3456
+4123356789123456
+5133-3367-8912-3456
+5123 - 3567 - 8912 - 3456
+
+Sample Output
+Valid
+Valid
+Invalid
+Valid
+Invalid
+Invalid
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# import re
+# regex = re.compile(
+#     r'^'
+#     r'(?!.*(\d)(-?\1){3})'
+#     r'[456]'
+#     r'\d{3}'
+#     r'(?:-?\d{4}){3}'
+#     r'$')
+# for _ in range(int(input().strip())):
+#     print('Valid' if regex.search(input().strip()) else 'Invalid')
+
+# Option 2
+import re
+regex = re.compile(
+    r'^'
+    r'(?!.*(\d)(-?\1){3})'
+    r'[456]'
+    r'\d{3}'
+    r'(?:-?\d{4}){3}'
+    r'$')
+for _ in range(int(input())):
+    x = input()
+    if regex.search(x):
+        print('Valid')
+    else:
+        print('Invalid')
+
+
+## Validating Postal Codes
+"""
+A valid postal code P have to fullfil both below requirements:
+P must be a number in the range from 100000 to 999999 inclusive.
+P must not contain more than one alternating repetitive digit pair.
+Alternating repetitive digits are digits which repeat immediately after the next digit. In other words, an alternating repetitive digit pair is formed by two equal digits that have just a single digit between them.
+For example:
+121426 # Here, 1 is an alternating repetitive digit.
+523563 # Here, NO digit is an alternating repetitive digit.
+552523 # Here, both 2 and 5 are alternating repetitive digits.
+"""
+# Option 1
+regex_integer_in_range = r'^[1-9][\d]{5}$'
+regex_alternating_repetitive_digit_pair = r'(\d)(?=\d\1)'
+
+# Option 2
+regex_integer_in_range = r'^[1-9]\d{5}$'
+regex_alternating_repetitive_digit_pair = r'(.)(?=.\1)'
+
+# Option 3
+regex_integer_in_range = r'\d{6}(?!\d)'
+regex_alternating_repetitive_digit_pair = r'(.)(?=.\1)'
+
+import re
+P = input()
+
+print (bool(re.match(regex_integer_in_range, P)) 
+and len(re.findall(regex_alternating_repetitive_digit_pair, P)) < 2)
+
+
+## Matrix Script
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+first_multiple_input = input().rstrip().split()
+n = int(first_multiple_input[0])
+m = int(first_multiple_input[1])
+matrix = []
+for _ in range(n):
+    matrix_item = input()
+    matrix.append(matrix_item)
+
+# # Option 1
+# new = []
+# for i in range(m):
+#     new.append(''.join(list(map(lambda x:x[i],matrix))))
+# print(re.sub(r'(?<=\w)[\s!@#$%&]+(?=\w)',' ',''.join(new)))
+
+# # Option 2
+# new = ''.join(list(map(lambda t : ''.join(t), zip(*matrix))))
+# print(re.sub(r'(?<=[a-zA-Z0-9])[^a-zA-Z0-9]+(?=[a-zA-Z0-9])', ' ', new))
+
+# Option 3
+new = list()
+for i in range(m):
+    for j in range(n):
+        new.append(matrix[j][i])
+regex = re.compile('(?<=[a-z])[!@#\$%& ]+(?=[a-z])', flags = re.I)
+print(regex.sub(' ', ''.join(new)))
+
+
+## end ##
+

@@ -1,0 +1,102 @@
+## Python
+## Basic Data Types
+
+
+## List Comprehensions
+Option 1:
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+
+print ([[a,b,c] for a in range(0,x+1) for b in range(0,y+1) for c in range(0,z+1) if a + b + c != n ])
+
+Option 2:
+if __name__ == '__main__':
+    x = int(input())
+    y = int(input())
+    z = int(input())
+    n = int(input())
+
+    l = []
+    for i in range(x + 1):
+        for j in range(y + 1):
+            for k in range(z + 1):
+                if n != (i + j + k):
+                    l.append([i,j,k])
+
+    print(l)
+
+
+## Find the Runner-Up Score!
+if __name__ == '__main__':
+    n = int(input())
+    arr = map(int, input().split())
+
+arr2 = sorted(arr)
+max_score = arr2[-1]
+for i in range(n):
+    if arr2[-(i+1)] < max_score:
+        print(arr2[-(i+1)])
+        break
+
+
+## Nested Lists
+if __name__ == '__main__':
+    name_list, score_list = [], []
+    n = int(input())
+    for _ in range(n):
+        name = input()
+        name_list.append(name)
+        score = float(input())
+        score_list.append(score)
+
+students = list(zip(name_list, score_list))
+students1 = sorted(students)
+second_score = sorted(set(b for a,b in students1))[1]
+for i in range(n):
+    if students1[i][1] == second_score:
+        print((students1[i][0]))
+
+
+## Finding the percentage
+if __name__ == '__main__':
+    n = int(input())
+    student_marks = {}
+    for _ in range(n):
+        name, *line = input().split()
+        scores = list(map(float, line))
+        student_marks[name] = scores
+    query_name = input()
+
+total = sum(student_marks[query_name])
+print("{:.2f}".format(total/3))
+
+
+## Lists
+if __name__ == '__main__':
+    N = int(input())
+
+my_list = []
+for _ in range(N):
+    s = input().split()
+    cmd = s[0]
+    args = s[1:]
+    if cmd !="print":
+        cmd += "("+ ",".join(args) +")"
+        eval("my_list."+cmd)
+    else:
+        print(my_list)
+
+
+## Tuples
+if __name__ == '__main__':
+    n = int(input())
+    integer_list = map(int, input().split())
+
+t = tuple(integer_list)
+print(hash(t))
+
+
+## end ##

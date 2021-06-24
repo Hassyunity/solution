@@ -1,0 +1,48 @@
+## Ruby
+## Introduction
+
+
+## Ruby Tutorial - Hello HackerRank!
+print "Hello HackerRank!!"
+
+
+
+
+## Ruby Tutorial - Everything is an Object
+# Everything is an object in Ruby. For instance, if you type print self
+# In the code-editor, Ruby treats self as the object in which it is currently referred to.
+
+print self
+Expected Output
+main
+
+# everything in object.main is an object (of object class)
+# main is a method of the object class
+
+
+
+
+## Ruby Tutorial - Object Methods
+def odd_or_even(number)
+    # add your code here
+    return number.even?
+end
+
+(0...gets.to_i).each do |i|
+    puts odd_or_even(gets.to_i)
+end
+
+
+
+
+## Ruby Tutorial - Object Method Parameters
+# Three variables a, b, and c are already defined. 
+# Your task is to write code that checks whether a is within the range of b and c by calling the method range?
+
+# write your code here
+a.range? b, c
+
+
+
+
+## end ##

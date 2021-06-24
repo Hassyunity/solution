@@ -1,0 +1,58 @@
+## Python
+## Date and Time
+
+
+## Calendar Module
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# import calendar
+# month, day, year = map(int, input().split())
+# print(list(calendar.day_name)[calendar.weekday(year, month, day)].upper())
+
+# Option 2
+import datetime
+month, day, year = map(int, input().split())
+print( datetime.datetime(year, month, day).strftime('%A').upper() )
+
+# Option 2a
+from datetime import datetime
+month, day, year = map(int, input().split())
+print( datetime(year, month, day).strftime('%A').upper() )
+
+# # Option 3
+# import calendar
+# week_list = list(calendar.day_name)
+# month, day, year = map(int, input().split())
+# result = calendar.weekday(year, month, day)
+# print((week_list[result]).upper())
+
+
+## Time Delta
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the time_delta function below.
+from datetime import datetime as dt
+def time_delta(t1, t2):
+    fmt = '%a %d %b %Y %H:%M:%S %z'   #day dd mon yyyy hh mm ss utc
+    t1 = dt.strptime(t1, fmt)
+    t2 = dt.strptime(t2, fmt)
+    result = (int( abs((t1 - t2).total_seconds()) ))
+    return str(result)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        t1 = input()
+        t2 = input()
+        delta = time_delta(t1, t2)
+        fptr.write(delta + '\n')
+    fptr.close()
+
+
+## end ##

@@ -1,0 +1,199 @@
+## Interview Preparation Kit
+## Search
+
+
+
+
+## Hash Tables: Ice Cream Parlor
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the whatFlavors function below.
+# Option 1
+def whatFlavors(cost, money):
+    ref_dict = {}
+    for i in range(len(cost)):
+        price = cost[i]
+        compliment = money - price
+        if compliment in ref_dict:
+            print(cost.index(compliment) +1 , i+1)
+        else:
+            ref_dict[price] = compliment
+
+# Option 2
+def whatFlavors(cost, money):
+    ref_dict = {}
+    for pos, price in enumerate(cost):
+        if price in ref_dict:
+            print(ref_dict[price] +1 , pos +1)
+        else:
+            ref_dict[money - price] = pos 
+
+if __name__ == '__main__':
+    t = int(input())
+    for t_itr in range(t):
+        money = int(input())
+        n = int(input())
+        cost = list(map(int, input().rstrip().split()))
+        whatFlavors(cost, money)
+
+
+
+
+## Swap Nodes [Algo]
+#!/bin/python3
+import os
+import sys
+
+#
+# Complete the swapNodes function below.
+#
+from collections import deque
+
+class Node:
+    def __init__(self, d):
+        self.data = d
+    
+def build_tree(indexes):
+    f = lambda x: None if x == -1 else Node(x)
+    children = [list(map(f,x)) for x in indexes]
+    nodes = {n.data: n for n in filter(None, sum(children, []))}
+    nodes[1] = Node(1)
+    for idx, child_pair in enumerate(children):
+        nodes[idx+1].left = child_pair[0]
+        nodes[idx+1].right = child_pair[1]
+    return nodes[1]
+
+def inorder(root):
+    stack = []
+    curr = root
+    while stack or curr:
+        if curr:
+            stack.append(curr)
+            curr = curr.left
+        elif stack:
+            curr = stack.pop()
+            yield curr.data
+            curr = curr.right
+        
+def swapNodes(indexes, queries):
+    root = build_tree(indexes)
+    for k in queries:
+        h = 1
+        q = deque([root])
+        while q:
+            for _ in range(len(q)):
+                node = q.popleft()
+                if h % k == 0:
+                    node.left, node.right = node.right, node.left
+                q += filter(None, (node.left, node.right))
+            h += 1
+        yield inorder(root)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    indexes = []
+    for _ in range(n):
+        indexes.append(list(map(int, input().rstrip().split())))
+    queries_count = int(input())
+    queries = []
+    for _ in range(queries_count):
+        queries_item = int(input())
+        queries.append(queries_item)
+    result = swapNodes(indexes, queries)
+    fptr.write('\n'.join([' '.join(map(str, x)) for x in result]))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Pairs
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the pairs function below.
+def pairs(k, arr):
+    return len(set(arr) & set(x+k for x in arr))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    arr = list(map(int, input().rstrip().split()))
+    result = pairs(k, arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Triple sum
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the triplets function below.
+def triplets(a, b, c):
+    a = list(sorted(set(a)))
+    b = list(sorted(set(b)))
+    c = list(sorted(set(c)))
+    p, q, r = 0, 0, 0
+    result = 0
+    
+    while q < len(b):
+        while p < len(a) and a[p] <= b[q]:
+            p += 1
+        while r < len(c) and c[r] <= b[q]:
+            r += 1
+        result += p * r
+        q += 1
+    
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    lenaLenbLenc = input().split()
+    lena = int(lenaLenbLenc[0])
+    lenb = int(lenaLenbLenc[1])
+    lenc = int(lenaLenbLenc[2])
+    arra = list(map(int, input().rstrip().split()))
+    arrb = list(map(int, input().rstrip().split()))
+    arrc = list(map(int, input().rstrip().split()))
+    ans = triplets(arra, arrb, arrc)
+    fptr.write(str(ans) + '\n')
+    fptr.close()
+
+
+
+
+## Minimum Time Required
+
+
+
+
+
+
+
+
+
+
+(work in progress)
+
+
+
+
+## end ##

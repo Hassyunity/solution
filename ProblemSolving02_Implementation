@@ -1,0 +1,2740 @@
+## Problem Solving
+## Implementation
+
+
+
+
+## Grading Students
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'gradingStudents' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts INTEGER_ARRAY grades as parameter.
+#
+def gradingStudents(grades):
+    for i in range(len(grades)):
+        if grades[i] >= 38:
+            difference = 5 - (grades[i] % 5)
+            if difference < 3:
+                grades[i] += difference
+    return grades
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    grades_count = int(input().strip())
+    grades = []
+    for _ in range(grades_count):
+        grades_item = int(input().strip())
+        grades.append(grades_item)
+    result = gradingStudents(grades)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Apple and Orange
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the countApplesAndOranges function below.
+def countApplesAndOranges(s, t, a, b, apples, oranges):
+    print(sum([1 for x in apples if (x + a) >= s and (x + a) <= t]))
+    print(sum([1 for x in oranges if (x + b) >= s and (x + b) <= t]))
+
+if __name__ == '__main__':
+    st = input().split()
+    s = int(st[0])
+    t = int(st[1])
+    ab = input().split()
+    a = int(ab[0])
+    b = int(ab[1])
+    mn = input().split()
+    m = int(mn[0])
+    n = int(mn[1])
+    apples = list(map(int, input().rstrip().split()))
+    oranges = list(map(int, input().rstrip().split()))
+    countApplesAndOranges(s, t, a, b, apples, oranges)
+
+
+
+
+## Kangaroo
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the kangaroo function below.
+def kangaroo(x1, v1, x2, v2):
+    if x2 >= x1 and v2 >= v1:
+        return 'NO'
+    if (x1 - x2) % (v2 - v1) == 0:
+        return 'YES'
+    else:
+        return 'NO'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    x1V1X2V2 = input().split()
+    x1 = int(x1V1X2V2[0])
+    v1 = int(x1V1X2V2[1])
+    x2 = int(x1V1X2V2[2])
+    v2 = int(x1V1X2V2[3])
+    result = kangaroo(x1, v1, x2, v2)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Between Two Sets
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getTotalX' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY a
+#  2. INTEGER_ARRAY b
+#
+def getTotalX(a, b):
+    count=0
+    for num in range(max(a), max(b)+1):
+        divisible1 = [True if num%x==0 else False for x in a]
+        divisible2 = [True if y%num==0 else False for y in b]
+        if all(divisible1) == True and all(divisible2) == True:
+            count += 1
+    return count
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    first_multiple_input = input().rstrip().split()
+    n = int(first_multiple_input[0])
+    m = int(first_multiple_input[1])
+    arr = list(map(int, input().rstrip().split()))
+    brr = list(map(int, input().rstrip().split()))
+    total = getTotalX(arr, brr)
+    fptr.write(str(total) + '\n')
+    fptr.close()
+
+
+
+
+## Breaking the Records
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the breakingRecords function below.
+def breakingRecords(scores):
+    score_high = scores[0]
+    score_low = scores[0]
+    count_high, count_low = 0, 0
+    for score in scores:
+        if score > score_high:
+            score_high = score
+            count_high += 1
+        elif score < score_low:
+            score_low = score
+            count_low += 1
+    return [count_high, count_low]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    scores = list(map(int, input().rstrip().split()))
+    result = breakingRecords(scores)
+    fptr.write(' '.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Birthday Chocolate
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the birthday function below.
+# Option 1
+def birthday(s, d, m):
+    c = 0   #count
+    for i in range(len(s) - m + 1):
+        sum_m = 0
+        for j in range(m):
+            sum_m += s[i+j]
+        if sum_m == d:
+            c+=1
+    return c
+
+# Option 2
+def birthday(s, d, m):
+    return len([1 for i in range(len(s)-m+1) if sum(s[i:i+m])==d])
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input().strip())
+    s = list(map(int, input().rstrip().split()))
+    dm = input().rstrip().split()
+    d = int(dm[0])
+    m = int(dm[1])
+    result = birthday(s, d, m)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Divisible Sum Pairs
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the divisibleSumPairs function below.
+# Option 1
+def divisibleSumPairs(n, k, ar):
+    c = 0   #count
+    for i in range(n):
+        for j in range(i+1 ,n):
+            if (ar[i]+ar[j])%k == 0:
+                c += 1
+    return c
+
+# Option 2
+def divisibleSumPairs(n, k, ar):
+    # Complete this function
+     return sum(1 for i in range(n) for j in range(i+1 ,n) if (ar[i]+ar[j])%k == 0)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    ar = list(map(int, input().rstrip().split()))
+    result = divisibleSumPairs(n, k, ar)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Migratory Birds
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the migratoryBirds function below.
+import collections
+def migratoryBirds(arr):
+    arr = sorted(arr)
+    freq = collections.Counter(arr)
+    for bird, count in freq.most_common():
+        return bird
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    arr_count = int(input().strip())
+    arr = list(map(int, input().rstrip().split()))
+    result = migratoryBirds(arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Day of the Programmer
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the dayOfProgrammer function below.
+def dayOfProgrammer(year):
+    if (year == 1918):
+        return '26.09.1918'
+    elif ((year<=1917) & (year%4==0))  or  ((year>1918) & (year%400==0 or ((year%4==0) & (year%100!=0)))):
+        return '12.09.%s' %year
+    else:
+        return '13.09.%s' %year
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    year = int(input().strip())
+    result = dayOfProgrammer(year)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Bon Appétit
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the bonAppetit function below.
+def bonAppetit(bill, k, b):
+    difference = b - ((sum(bill) - bill[k])//2)
+    if difference == 0:
+        print("Bon Appetit")
+    else:
+        print(difference)
+
+if __name__ == '__main__':
+    nk = input().rstrip().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    bill = list(map(int, input().rstrip().split()))
+    b = int(input().strip())
+    bonAppetit(bill, k, b)
+
+
+
+
+## Sock Merchant
+# determine how many pairs of socks with matching colors there are
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the sockMerchant function below.
+from collections import Counter
+def sockMerchant(n, ar):
+    total = 0
+    for value in Counter(ar).values():
+        total += value//2
+    return total
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    ar = list(map(int, input().rstrip().split()))
+    result = sockMerchant(n, ar)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Drawing Book
+#!/bin/python3
+import os
+import sys
+
+#
+# Complete the pageCount function below.
+#
+def pageCount(n, p):
+    l =[]
+    front_flips = 0
+    total_flips = n//2
+    for page in range(0,n+1):
+        if page % 2 ==0 and page !=0:
+            front_flips+=1
+        if page == p:
+            l.append(front_flips)
+            back_flips = total_flips - front_flips
+            l.append(back_flips)
+    return min(l)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    p = int(input())
+    result = pageCount(n, p)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Counting Valleys
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the countingValleys function below.
+def countingValleys(n, s): 
+    altitude = 0 
+    valleys = 0 
+    for letter in s: 
+        if letter == 'U': 
+            altitude += 1 
+        elif letter == 'D': 
+            altitude -= 1 
+            if altitude == -1: 
+                valleys += 1 
+    return valleys
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    s = input()
+    result = countingValleys(n, s)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Electronics Shop
+#!/bin/python3
+import os
+import sys
+
+#
+# Complete the getMoneySpent function below.
+#
+def getMoneySpent(keyboards, drives, b):
+    leftover = []
+    if min(keyboards)+min(drives) > b: 
+        return(-1)
+    for i in keyboards:
+        for j in drives:
+            if b-i-j >= 0:
+                leftover.append(b-i-j)
+    return(b - min(leftover))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    bnm = input().split()
+    b = int(bnm[0])
+    n = int(bnm[1])
+    m = int(bnm[2])
+    keyboards = list(map(int, input().rstrip().split()))
+    drives = list(map(int, input().rstrip().split()))
+    #
+    # The maximum amount of money she can spend on a keyboard and USB drive, or -1 if she can't purchase both items
+    #
+    moneySpent = getMoneySpent(keyboards, drives, b)
+    fptr.write(str(moneySpent) + '\n')
+    fptr.close()
+
+
+
+
+## Cats and a Mouse
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the catAndMouse function below.
+def catAndMouse(x, y, z):
+    if abs(x-z) < abs(y-z):
+        return 'Cat A'
+    elif abs(x-z) > abs(y-z):
+        return 'Cat B'
+    else:
+        return 'Mouse C'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    q = int(input())
+    for q_itr in range(q):
+        xyz = input().split()
+        x = int(xyz[0])
+        y = int(xyz[1])
+        z = int(xyz[2])
+        result = catAndMouse(x, y, z)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Forming a Magic Square
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the formingMagicSquare function below.
+valid_squares = [
+    [8, 1, 6, 3, 5, 7, 4, 9, 2],
+    [6, 1, 8, 7, 5, 3, 2, 9, 4],
+    [4, 9, 2, 3, 5, 7, 8, 1, 6],
+    [2, 9, 4, 7, 5, 3, 6, 1, 8],
+    [8, 3, 4, 1, 5, 9, 6, 7, 2],
+    [4, 3, 8, 9, 5, 1, 2, 7, 6],
+    [6, 7, 2, 1, 5, 9, 8, 3, 4],
+    [2, 7, 6, 9, 5, 1, 4, 3, 8],
+]
+
+def formingMagicSquare(grid):
+    costs = list()
+    flat = [j for k in grid for j in k]
+    for valid in valid_squares:
+        costs.append(sum([abs(v - i) for v, i in zip(valid, flat)]))
+    return min(costs)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = []
+    for _ in range(3):
+        s.append(list(map(int, input().rstrip().split())))
+    result = formingMagicSquare(s)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Picking Numbers
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'pickingNumbers' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts INTEGER_ARRAY a as parameter.
+#
+def pickingNumbers(a):
+    lengths=[]
+    for num in a:
+        subarray = list(filter(lambda x:x==num or x==num+1, a))
+        lengths.append(len(subarray))
+    return max(lengths)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input().strip())
+    a = list(map(int, input().rstrip().split()))
+    result = pickingNumbers(a)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Climbing the Leaderboard
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the climbingLeaderboard function below.
+# Option 1
+from collections import Counter
+def climbingLeaderboard(scores, alice):
+    result = []
+    b = list(Counter(scores).keys())
+    temp = len(b)-1
+    for a in alice:
+        for i in range(temp,-1,-1):
+            if b[i]>a:
+                result.append(i+2)
+                temp = i
+                break  
+            elif i==0:
+                result.append(1)     
+    return result
+
+# Option 2
+def climbingLeaderboard(scores, alice):
+    result = []
+    b = sorted(list(set(scores)), reverse=True)
+    temp = len(b)-1
+    for a in alice:
+        for i in range(temp,-1,-1):
+            if b[i]>a:
+                result.append(i+2)
+                temp = i
+                break  
+            elif i==0:
+                result.append(1)     
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    scores_count = int(input())
+    scores = list(map(int, input().rstrip().split()))
+    alice_count = int(input())
+    alice = list(map(int, input().rstrip().split()))
+    result = climbingLeaderboard(scores, alice)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## The Hurdle Race
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the hurdleRace function below.
+def hurdleRace(k, height):
+    result = 0
+    if max(height) >= k:
+        result = max(height)-k
+    else:
+        result = 0
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    height = list(map(int, input().rstrip().split()))
+    result = hurdleRace(k, height)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Designer PDF Viewer
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+import string
+def designerPdfViewer(h, word):
+    alphabet = list(string.ascii_lowercase)
+    ref = dict(list(zip(alphabet, h)))
+    height = []
+    for letter in word:
+        if letter in ref:
+            height.append(ref[letter])
+    print(height)
+    return min(height) * max(height) * len(height)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    h = list(map(int, input().rstrip().split()))
+    word = input()
+    result = designerPdfViewer(h, word)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Utopian Tree
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the utopianTree function below.
+def utopianTree(n):
+    if n==0: 
+        return(1)
+    elif n%2!=0:
+        return(2*utopianTree(n-1))
+    else: 
+        return(utopianTree(n-1)+1)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        n = int(input())
+        result = utopianTree(n)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the angryProfessor function below.
+# Option 1
+def angryProfessor(k, a):
+    count = 0
+    for i in range(len(a)):
+        if a[i] <= 0:
+            count += 1
+    if count >= k:
+        return 'NO'
+    else:
+        return 'YES'
+
+# Option 2
+def angryProfessor(k, a):
+    punctual = 0   #count
+    for arrival_time in a:
+        if arrival_time <= 0:
+            punctual += 1
+    if punctual >= k:
+        return 'NO'
+    else:
+        return 'YES'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        nk = input().split()
+        n = int(nk[0])
+        k = int(nk[1])
+        a = list(map(int, input().rstrip().split()))
+        result = angryProfessor(k, a)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Beautiful Days at the Movies
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the beautifulDays function below.
+def beautifulDays(i, j, k):
+    tally = 0
+    for x in range(i, j+1):
+        if (x - int(str(x)[::-1])) % k == 0:
+            tally += 1
+    return tally
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    ijk = input().split()
+    i = int(ijk[0])
+    j = int(ijk[1])
+    k = int(ijk[2])
+    result = beautifulDays(i, j, k)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Viral Advertising
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the viralAdvertising function below.
+def viralAdvertising(n):
+    likes = 0
+    total = 5
+    for i in range(1,n+1):
+        likes += total//2
+        total = (total//2 * 3)
+    return likes
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    result = viralAdvertising(n)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Save the Prisoner!
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the saveThePrisoner function below.
+def saveThePrisoner(n, m, s):
+    s = s + m%n -1
+    if s == 0: 
+        s = n
+    elif s > n : 
+        s = s % n
+    return s
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        nms = input().split()
+        n = int(nms[0])
+        m = int(nms[1])
+        s = int(nms[2])
+        result = saveThePrisoner(n, m, s)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Circular Array Rotation
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the circularArrayRotation function below.
+def circularArrayRotation(a, k, queries):
+    for _ in range(k):
+        a.insert(0, a[-1])
+        a.pop(-1)
+    result = []
+    for i in queries:
+        result.append(a[i])
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nkq = input().split()
+    n = int(nkq[0])
+    k = int(nkq[1])
+    q = int(nkq[2])
+    a = list(map(int, input().rstrip().split()))
+    queries = []
+    for _ in range(q):
+        queries_item = int(input())
+        queries.append(queries_item)
+    result = circularArrayRotation(a, k, queries)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Sequence Equation
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the permutationEquation function below.
+def permutationEquation(p):
+    result = []
+    for i in range(1, len(p)+1):
+        px = p.index(i) + 1
+        ppx = p.index(px) + 1
+        result.append(ppx)
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    p = list(map(int, input().rstrip().split()))
+    result = permutationEquation(p)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Jumping on the Clouds: Revisited
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the jumpingOnClouds function below.
+def jumpingOnClouds(c, k):
+    e = 100
+    p = 0
+    while e != 0:
+        p += k
+        if p >= len(c) : 
+            p = p%len(c)
+        e = e-1 - (c[p]*2)
+        if p == 0 : 
+            break 
+    return e
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    c = list(map(int, input().rstrip().split()))
+    result = jumpingOnClouds(c, k)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Find Digits
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the findDigits function below.
+def findDigits(n):
+    digit = list(str(n))
+    tally = 0
+    for i in range(len(digit)):
+        try:
+            if n % int(digit[i]) == 0:
+                tally += 1
+        except ZeroDivisionError:
+            pass
+    return tally
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        n = int(input())
+        result = findDigits(n)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Extra Long Factorials
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the extraLongFactorials function below.
+def extraLongFactorials(n):  # recursive
+    if n <= 1:
+        return 1
+    else:
+        return n * extraLongFactorials(n-1)
+
+if __name__ == '__main__':
+    n = int(input())
+    print(extraLongFactorials(n))
+
+
+
+
+## Append and Delete
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the appendAndDelete function below.
+def appendAndDelete(s, t, k):
+    ops = 0
+    for i in range(max(len(s), len(t))):
+        if i == min(len(s), len(t)):
+            # If this statement is true, then either string s
+            # equals t from 0 to i or vice-versa
+            # Therefore set ops equal to difference
+            # between lengths of s and t
+            ops = abs(len(s) - len(t))
+            break
+        elif s[i] != t[i]:
+            # Consider given example
+            # s = hackerhappy
+            # t = hackerrank
+            # Statement is true when i = 6
+            # 11 - 6 = 5 deletions, happy
+            # 10 - 6 = 4 additions, rank
+            # Total ops = 5 + 4 = 9
+            ops = len(s) - i + len(t) - i
+            break
+
+    # If ops is greater than k, then the answer must be "No"
+    # Else if ops is odd and k is even (i.e., ops < k),
+    # there exists no combination of additional ops such that 
+    # ops == k to make s == t
+    if ops > k or ops % 2 == 1 and k % 2 == 0:
+        return 'No'
+
+    return 'Yes'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    t = input()
+    k = int(input())
+    result = appendAndDelete(s, t, k)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Sherlock and Squares
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the squares function below.
+def squares(a, b):
+    lim1 = int(math.sqrt(a) // 1)
+    lim2 = int(math.sqrt(b) // 1)
+    sq_list = []
+    for i in range(lim1, lim2+1):
+        sq = i*i
+        if sq >= a and sq <= b:
+            sq_list.append(sq)
+    return len(sq_list)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    q = int(input())
+    for q_itr in range(q):
+        ab = input().split()
+        a = int(ab[0])
+        b = int(ab[1])
+        result = squares(a, b)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Library Fine
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the libraryFine function below.
+def libraryFine(d1, m1, y1, d2, m2, y2):
+    if y2 > y1:
+        return 0
+    if y1 > y2:
+        return 10000
+    if m2 > m1:
+        return 0
+    if m1 > m2:
+        return 500 * (m1-m2)
+    if d2 > d1:
+        return 0
+    if d1 > d2:
+        return 15 * (d1 -d2)
+    return 0
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    d1M1Y1 = input().split()
+    d1 = int(d1M1Y1[0])
+    m1 = int(d1M1Y1[1])
+    y1 = int(d1M1Y1[2])
+    d2M2Y2 = input().split()
+    d2 = int(d2M2Y2[0])
+    m2 = int(d2M2Y2[1])
+    y2 = int(d2M2Y2[2])
+    result = libraryFine(d1, m1, y1, d2, m2, y2)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Cut the sticks
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the cutTheSticks function below.
+from collections import Counter
+def cutTheSticks(arr):
+    freq = Counter(arr)
+    total_sticks = len(arr)
+    result = []
+    for e in sorted(set(arr)):
+        result.append(total_sticks)
+        if total_sticks != 0:
+            total_sticks -= freq[e]
+        else:
+            break
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    arr = list(map(int, input().rstrip().split()))
+    result = cutTheSticks(arr)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Non-Divisible Subset
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'nonDivisibleSubset' function below.
+#
+# The function is expected to return an INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER k
+#  2. INTEGER_ARRAY s
+#
+def nonDivisibleSubset(k, s):
+    # Write your code here
+    freq = [0]*k
+    for i in range(len(s)):
+        freq[s[i]%k] += 1
+    if k%2 == 0:
+        freq[k//2] = min(freq[k//2],1)
+    result = min(freq[0],1)
+    for i in range(1, k//2+1):
+        result += max(freq[i],freq[k-i])
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    first_multiple_input = input().rstrip().split()
+    n = int(first_multiple_input[0])
+    k = int(first_multiple_input[1])
+    s = list(map(int, input().rstrip().split()))
+    result = nonDivisibleSubset(k, s)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Repeated String
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the repeatedString function below.
+# Option 1
+def repeatedString(s, n):
+    count = s.count('a')
+    full_str = n//len(s)
+    remainder = n%len(s) 
+    total = count*full_str + s[:remainder].count('a')
+    return total
+
+# Option 2
+def repeatedString(s, n):
+    return (s.count('a') * (n//len(s)) + s[:n%len(s)].count('a'))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    n = int(input())
+    result = repeatedString(s, n)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Jumping on the Clouds
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the jumpingOnClouds function below.
+def jumpingOnClouds(c):
+    jump = 0
+    i = 1
+    while i < len(c):
+        if i != len(c)-1 and c[i+1] == 0:
+            jump += 1
+            i += 2
+        elif c[i] == 0:
+            jump += 1
+            i += 1
+    return jump
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    c = list(map(int, input().rstrip().split()))
+    result = jumpingOnClouds(c)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Equalize the Array
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the equalizeArray function below.
+# Option 1
+from collections import Counter
+def equalizeArray(arr):
+    freq = Counter(arr)
+    highest = max(list(freq.values()))
+    return len(arr) - highest
+
+# Option 2
+from collections import Counter
+def equalizeArray(arr):
+    return len(arr) - Counter(arr).most_common()[0][1]
+
+# Option 3 using dictionary 
+def equalizeArray(arr):
+    freq = {}
+    for ele in arr:
+        if ele in freq:
+            freq[ele] += 1
+        else:
+            freq[ele] = 1
+    highest = max(list(freq.values()))
+    return len(arr) - highest
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    arr = list(map(int, input().rstrip().split()))
+    result = equalizeArray(arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Queen's Attack II
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the queensAttack function below.
+# Option 1
+def queensAttack(n, k, r, c, obstacles):
+    n1 = n
+    result = 0
+    nr = []
+    if r != n1:
+        nr.append(n1+1)
+    sr = []
+    if r != 1:
+        sr.append(0)
+    ec = []
+    if c != n1:
+        ec.append(n1+1)
+    wc = []
+    if c != 1:
+        wc.append(0)
+    nwr = []# r = 8 or c = 1
+    nwc = []
+    if (n1 - r != 0) and (c - 1 != 0):
+        if (n1 - r < c - 1):
+            nwr.append(n1+1)
+        else:
+            nwc.append(0)
+
+    ner = []# r = 8 or c = 8
+    nec = []
+    if (n1 - r != 0) and (n1 - c != 0):
+        if (n1 - r) < (n1 - c):
+            ner.append(n1+1)
+        else:
+            nec.append(n1+1)
+        
+    swr = []# r = 1 or c = 1
+    swc = []
+    if (r - 1 != 0) and (c - 1 != 0):
+        if (r - 1) < (c - 1):
+            swr.append(0)
+        else:
+            swc.append(0)
+        
+    ser = []# r = 1 or c = 8
+    sec = []
+    if (r - 1 != 0) and (n1 - c != 0):
+        if (r - 1) < (n1 - c):
+            ser.append(0)
+        else:
+            sec.append(n1+1)
+
+    for i in range(k):
+        if obstacles[i][0] == r:
+            if (obstacles[i][1] < c):
+                if (len(wc) != 0):
+                    wc.append(obstacles[i][1])
+            else:
+                if len(ec) != 0:
+                    ec.append(obstacles[i][1])
+        elif obstacles[i][1] == c:
+            if obstacles[i][0] < r:
+                if len(sr) != 0:
+                    sr.append(obstacles[i][0])
+            else:
+                if len(nr) != 0:
+                    nr.append(obstacles[i][0])
+        else:
+            if abs(r-obstacles[i][0]) == abs(c-obstacles[i][1]):
+                if (obstacles[i][0] - r) > 0 and (obstacles[i][1] - c) < 0:
+                    if len(nwr) != 0:
+                        nwr.append(obstacles[i][0])
+                    if len(nwc) != 0:
+                        nwc.append(obstacles[i][1])
+                if (obstacles[i][0] - r) > 0 and (obstacles[i][1] - c) > 0:
+                    if len(ner) != 0:
+                        ner.append(obstacles[i][0])
+                    if len(nec) != 0:
+                        nec.append(obstacles[i][1])
+                if (obstacles[i][0] - r) < 0 and (obstacles[i][1] - c) < 0:
+                    if len(swr) != 0:
+                        swr.append(obstacles[i][0])
+                    if len(swc) != 0:
+                        swc.append(obstacles[i][1])
+                if (obstacles[i][0] - r) < 0 and (obstacles[i][1] - c) > 0:
+                    if len(ser) != 0:
+                        ser.append(obstacles[i][0])
+                    if len(sec) != 0:
+                        sec.append(obstacles[i][1])
+                    
+    if len(nr) != 0:
+        result += min(nr) - r - 1
+    if len(sr) != 0:
+        result += r - max(sr) - 1
+    if len(ec) != 0:
+        result += min(ec) - c - 1
+    if len(wc) != 0:
+        result += c - max(wc) - 1
+    if len(nwr) != 0:
+        result += min(nwr) - r - 1
+    if len(nwc) != 0:
+        result += c - max(nwc) - 1
+    if len(ner) != 0:
+        result += min(ner) - r - 1
+    if len(nec) != 0:
+        result += min(nec) - c - 1
+    if len(swr) != 0:
+        result += r - max(swr) - 1
+    if len(swc) != 0:
+        result += c - max(swc) - 1
+    if len(ser) != 0:
+        result += r - max(ser) - 1
+    if len(sec) != 0:
+        result += min(sec) - c - 1
+    return result
+
+# Option 2
+def queensAttack(n, k, r_q, c_q, obstacles):
+    north = east = n + 1
+    south = west = 0
+    north_east = min(n + 1 - r_q, n + 1 - c_q)
+    south_east = min(r_q, n + 1 - c_q)
+    south_west = min(r_q, c_q)
+    north_west = min(n + 1 - r_q, c_q)
+    for obstacle in obstacles:
+        row, col = obstacle
+        if col == c_q and row > r_q and row < north:
+            north = row
+        elif col == c_q and row < r_q and row > south:
+            south = row
+        elif row == r_q and col > c_q and col < east:
+            east = col
+        elif row == r_q and col < c_q and col > west:
+            west = col
+        elif ( row > r_q and col > c_q 
+                and (row - r_q) == (col - c_q)
+                and (row - r_q) < north_east ):
+            north_east = row - r_q
+        elif ( row < r_q and col > c_q 
+                and (r_q - row) == (col - c_q)
+                and (r_q - row) < south_east ):
+            south_east = r_q - row
+        elif ( row < r_q and col < c_q
+                and (r_q - row) == (c_q - col)
+                and (r_q - row) < south_west ):
+            south_west = r_q - row
+        elif ( row > r_q and col < c_q 
+                and (row - r_q) == (c_q - col)
+                and (row - r_q) < north_west ):
+            north_west = row - r_q
+
+    move_north = north - r_q - 1
+    move_east = east - c_q - 1
+    move_south = r_q - south - 1
+    move_west = c_q - west - 1
+    move_north_east = north_east - 1
+    move_south_east = south_east - 1
+    move_south_west = south_west - 1
+    move_north_west = north_west - 1
+    result = (move_north + move_east + move_south + move_west + move_north_east 
+                + move_south_east + move_south_west + move_north_west)
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    r_qC_q = input().split()
+    r_q = int(r_qC_q[0])
+    c_q = int(r_qC_q[1])
+    obstacles = []
+    for _ in range(k):
+        obstacles.append(list(map(int, input().rstrip().split())))
+    result = queensAttack(n, k, r_q, c_q, obstacles)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## ACM ICPC Team
+## ACM ICPC Team
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the acmTeam function below.
+# Option 1
+from itertools import combinations
+def acmTeam(topic):
+    comb = combinations(topic, 2)
+    m = 0
+    count = 0
+    for i in comb:
+        n = str(bin(((int(i[0],2) | int(i[1],2)))))[2:].count('1')
+        if n > m:            
+            m = n
+            count = 1
+        elif n == m:
+            count += 1
+    return (m, count)
+
+# Option 2
+from collections import defaultdict
+def acmTeam(topic):
+    # converted topic from a matrix of characters to a matrix of booleans
+    topic = [ [ topic[i][k]=='1' for k in range(m) ] for i in range(n) ]
+    c = defaultdict(int)
+    for i in range(n):
+        for j in range(i+1,n):
+            c[sum( topic[i][k] or topic[j][k] for k in range(m) )] += 1    
+    return max(c), c[max(c)]
+
+# Option 3
+from collections import Counter
+from itertools import combinations
+def acmTeam(topic):
+    Topic = [ int(s,2) for s in topic ]
+    result = Counter(bin(a|b).count('1') for a,b in combinations(Topic,2)) 
+    return max(result.items())
+
+# Option 4
+def acmTeam(topic):
+    n = len(topic)
+    combi = []
+    for i in range(n-1):
+        for j in range(i+1, n):
+            l = bin(int(topic[i],2) | int(topic[j],2))
+            combi.append(l.count('1'))
+    return( max(combi), combi.count(max(combi)) )  
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nm = input().split()
+    n = int(nm[0])
+    m = int(nm[1])
+    topic = []
+    for _ in range(n):
+        topic_item = input()
+        topic.append(topic_item)
+    result = acmTeam(topic)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Taum and B'day
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'taumBday' function below.
+#
+# The function is expected to return a LONG_INTEGER.
+# The function accepts following parameters:
+#  1. INTEGER b
+#  2. INTEGER w
+#  3. INTEGER bc
+#  4. INTEGER wc
+#  5. INTEGER z
+#
+# Option 1
+def taumBday(b, w, bc, wc, z):
+    # Write your code here
+    return b*min(bc, wc+z) + w*min(wc,bc+z)
+
+# Option 2
+def taumBday(b, w, bc, wc, z):
+    # Write your code here
+    return ((min(bc,wc+z) * b) + (min(wc,bc+z) * w))
+
+# Option 3
+def taumBday(b, w, bc, wc, z):
+    # Write your code here
+    if((bc+z)<wc):
+        return((bc*b) + ((bc+z)*w))
+    elif((wc+z)<bc):
+        return(((wc+z)*b) + (wc*w))
+    else:
+        return((b*bc) + (w*wc))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input().strip())
+    for t_itr in range(t):
+        first_multiple_input = input().rstrip().split()
+        b = int(first_multiple_input[0])
+        w = int(first_multiple_input[1])
+        second_multiple_input = input().rstrip().split()
+        bc = int(second_multiple_input[0])
+        wc = int(second_multiple_input[1])
+        z = int(second_multiple_input[2])
+        result = taumBday(b, w, bc, wc, z)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Organizing Containers of Balls
+"""
+1) Make a table of box totals (capacity of each box)
+2) Make a table of ball totals (total quantity of each ball type)
+3) Sort both tables
+4) If they are identical print Possible, otherwise print Impossible
+"""
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the organizingContainers function below.
+# Option 1
+def organizingContainers(container):
+    row_list = []
+    col_list = []
+    n = len(container)
+    for i in range(0,n):
+        row_list.append(sum(container[i]))
+        j = 0
+        tot = 0
+        for j in range(0,n):
+            tot += container[j][i]
+        col_list.append(tot)
+    row_list.sort()
+    col_list.sort()
+    if row_list==col_list:
+        return 'Possible'
+    else:
+        return 'Impossible'
+
+# Option 2
+def organizingContainers(container):
+    row_list = []
+    col_list = []
+    for i in container:
+        row_list.append(sum(i))
+    for k in list(zip(*container)):
+        col_list.append(sum(k))
+    row_list.sort()
+    col_list.sort()
+    if row_list==col_list:
+        return 'Possible'
+    else:
+        return 'Impossible'
+
+# Option 3
+def organizingContainers(container):
+    if sorted([sum(container[x]) for x in range(n)]) == sorted([sum(container[y][x] for y in range(n)) for x in range(n)]): 
+        return 'Possible'
+    else: 
+        return 'Impossible'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    q = int(input())
+    for q_itr in range(q):
+        n = int(input())
+        container = []
+        for _ in range(n):
+            container.append(list(map(int, input().rstrip().split())))
+        result = organizingContainers(container)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Encryption
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the encryption function below.
+# Option 1
+def encryption(s):
+    result = []
+    n = len(s)
+    row = math.ceil(math.sqrt(n))
+    col = 0
+    if row >= math.sqrt(n):
+        col = row
+    else:
+        col = row+1
+    for i in range(col):
+        for j in range(i,n,col):
+            result.append(s[j])
+        result.append(' ')
+    return (''.join(result))
+
+# Option 2
+def encryption(s):
+    step = math.ceil(math.sqrt(len(s)))
+    return (' '.join(map(lambda x: s[x::step], range(step))))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = encryption(s)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Bigger is Greater
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the biggerIsGreater function below.
+# Option 1
+def biggerIsGreater(w):
+    arr = list(w)
+    # Find non-increasing suffix
+    i = len(arr) - 1
+    while i > 0 and arr[i-1] >= arr[i]:
+        i -= 1
+    if i <= 0:
+        return 'no answer'
+    
+    # Find successor to pivot
+    j = len(arr) - 1
+    while arr[j] <= arr[i-1]:
+        j -= 1
+    arr[i-1], arr[j] = arr[j], arr[i-1]
+    
+    # Reverse suffix
+    arr[i : ] = arr[len(arr)-1 : i-1 : -1]
+    return ''.join(arr)
+
+# Option 2
+def biggerIsGreater(w):
+    for i in range(len(w)-1)[::-1]:
+        if w[i] < w[i+1]:
+            for j in range(i+1,len(w))[::-1]:
+                if w[i] < w[j]:
+                    lis = list(w) 
+                    lis[i],lis[j]=lis[j],lis[i]
+                    return ''.join(lis[:i+1]+lis[i+1:][::-1])
+    return 'no answer'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    T = int(input())
+    for T_itr in range(T):
+        w = input()
+        result = biggerIsGreater(w)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Modified Kaprekar Numbers
+"""
+In mathematics, a Kaprekar number for a given base is a non-negative integer, 
+the representation of whose square in that base can be split into two parts that add up to the original number again. 
+For instance, 45 is a Kaprekar number, because 45² = 2025 and 20+25 = 45.
+"""
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the kaprekarNumbers function below.
+# Option 1
+from math import pow
+def kaprekarNumbers(p, q):
+    result = []
+    for i in range(p, q + 1):
+        x = str(int(pow(i, 2)))
+        l = x[0:int(len(x) / 2)] if x[0:int(len(x) / 2)] else 0
+        r = x[int(len(x) / 2):len(x)] if x[int(len(x) / 2):len(x)] else 0
+        if(int(l) + int(r) == i): result.append(str(i))
+    print(' '.join(result) if len(result) > 0 else 'INVALID RANGE')
+
+# Option 2
+def kaprekarNumbers(p, q):
+    found=False
+    if p<9:
+        p=9
+        print('1',end=' ')
+    for i in range(p,q+1):
+        n=i**2
+        n=str(n)
+        d=len(n)//2
+        n1=n[:d]
+        n2=n[d:]
+        if i == int(n1)+int(n2):
+            print(i,end=' ')
+            found=True
+    if (not found):
+        print('INVALID RANGE')
+
+# Option 3
+def check(i):
+    sq = str(i**2)
+    le = len(str(i))
+    r = sq[-le:]
+    l = sq[:-le] or '0'
+    return sum(map(int,(l,r)))==i
+def kaprekarNumbers(p, q):
+    arr = [i for i in range(p,q+1) if check(i)]
+    return print(*arr or ['INVALID RANGE'])
+
+if __name__ == '__main__':
+    p = int(input())
+    q = int(input())
+    kaprekarNumbers(p, q)
+
+
+
+
+## Beautiful Triplets
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the beautifulTriplets function below.
+# Option 1
+def beautifulTriplets(d, arr):
+    result = 0
+    for i in range(n):
+        if (arr[i]+d in arr) and (arr[i]+d+d in arr):
+            result += 1
+    return result
+
+# Option 2
+def beautifulTriplets(d, arr):
+    sarr = set(arr)
+    return len([x for x in arr if x+d in sarr and x+d+d in sarr])
+
+# Option 3
+from collections import Counter
+def beautifulTriplets(d, arr):
+    freq = Counter(arr)
+    result = 0
+    for num in arr:
+        if freq[num+d] and freq[num+d+d]:
+            result += 1
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nd = input().split()
+    n = int(nd[0])
+    d = int(nd[1])
+    arr = list(map(int, input().rstrip().split()))
+    result = beautifulTriplets(d, arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Minimum Distances
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the minimumDistances function below.
+# Option 1
+def minimumDistances(a):
+    distance = []
+    for x in a:
+        d = (len(a)-1-a[::-1].index(x)) - a.index(x)
+        if d > 0:
+            distance.append(d)
+    if len(distance)==0:
+        return (-1)
+    else:
+        return (min(distance))
+
+# Option 2
+def minimumDistances(a):
+    distance = []
+    for i in range(len(a)-1):
+        for j in range(i+1, len(a)):
+            if a[i]==a[j]:
+                distance.append(abs(i-j))
+    return (min(distance) if len(distance)>0 else -1)
+
+# Option 3
+def minimumDistances(a):
+    minimum = len(a)
+    index_dict = {}
+    for idx, num in enumerate(a):
+        if num in index_dict:
+            distance = idx - index_dict[num]
+            if distance < minimum:
+                minimum = distance
+        index_dict[num] = idx
+    return (minimum if minimum<len(a) else -1)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    a = list(map(int, input().rstrip().split()))
+    result = minimumDistances(a)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Halloween Sale
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the howManyGames function below.
+# Option 1
+def howManyGames(p, d, m, s):
+    # Return the number of games you can buy
+    result = 0
+    while s >= p:
+        s -= p
+        if p-d > m:
+            p -= d
+        else:
+            p = m
+        result += 1
+    return result
+
+# Option 2
+def howManyGames(p, d, m, s):
+    result = 0
+    while s >= p:
+        s -= p
+        p = max(p-d , m)
+        result += 1
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    pdms = input().split()
+    p = int(pdms[0])
+    d = int(pdms[1])
+    m = int(pdms[2])
+    s = int(pdms[3])
+    answer = howManyGames(p, d, m, s)
+    fptr.write(str(answer) + '\n')
+    fptr.close()
+
+
+
+
+## The Time in Words
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the timeInWords function below.
+# Option 1
+def timeInWords(h, m):
+    mins = {1:"one minute",
+            2:"two minutes",
+            3:"three minutes",
+            4:"four minutes",
+            5:"five minutes",
+            6:"six minutes",
+            7:"seven minutes",
+            8:"eight minutes",
+            9:"nine minutes",
+            10:"ten minutes",
+            11:"eleven minutes",
+            12:"twelve minutes",
+            13:"thirteen minutes",
+            14:"fourteen minutes",
+            15:"quarter",
+            16:"sixteen minutes",
+            17:"seventeen minutes",
+            18:"eighteen minutes",
+            19:"nineteen minutes",
+            20:"twenty minutes",
+            21:"twenty one minutes",
+            22:"twenty two minutes",
+            23:"twenty three minutes",
+            24:"twenty four minutes",
+            25:"twenty five minutes",
+            26:"twenty six minutes",
+            27:"twenty seven minutes",
+            28:"twenty eight minutes",
+            29:"twenty nine minutes",
+            30:"half" }
+    hrs = { 1:"one",
+            2:"two",
+            3:"three",
+            4:"four",
+            5:"five",
+            6:"six",
+            7:"seven",
+            8:"eight",
+            9:"nine",
+            10:"ten",
+            11:"eleven",
+            12:"twelve",
+            13:"one" }
+    if m == 0:
+        return (hrs[h] + " o' clock")
+    elif m <= 30:
+        return (mins[m] + " past " + hrs[h])
+    else:
+        return (mins[60-m] + ' to ' + hrs[h+1])
+
+# Option 2
+def timeInWords(h, m):
+    num = [ "zero", 
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine",
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen",
+            "twenty"   ]
+    if m==0:
+        return num[h] + " o' clock"
+    if m==1:
+        return "one minute past " + num[h]
+    if m==15:
+        return "quarter past " + num[h]
+    if m==30:
+        return "half past " + num[h]
+    if m==45:
+        return "quarter to " + num[h+1]
+    if m<=20:
+        return num[m] + " minutes past " + num[h] 
+    if m<30:
+        return num[20] + " " + num[m%10] + " minutes past " + num[h] 
+    if m<40:
+        return num[20] + " " + num[(60-m)%10] + " minutes to " + num[h+1]
+    if m>=40:
+        return num[60-m] + " minutes to " + num[h+1]
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    h = int(input())
+    m = int(input())
+    result = timeInWords(h, m)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Chocolate Feast
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the chocolateFeast function below.
+# Option 1
+def chocolateFeast(n, c, m):
+    chocolates = n // c
+    wrappers = n // c
+    while wrappers >= m:
+        new_chocs = wrappers // m
+        wrappers -= new_chocs * m
+        chocolates += new_chocs
+        wrappers += new_chocs
+    return chocolates
+
+# Option 2
+def chocolateFeast(n, c, m):
+    chocolates = n//c
+    wrappers = chocolates
+    while wrappers >= m:
+        chocolates += wrappers // m
+        wrappers = wrappers//m + wrappers%m
+    return chocolates
+
+# Option 3
+def chocolateFeast(n, c, m):
+    chocolates = n//c
+    wrappers = chocolates
+    while wrappers >= m:
+        chocolates += 1
+        wrappers = wrappers - m + 1
+    return chocolates
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        ncm = input().split()
+        n = int(ncm[0])
+        c = int(ncm[1])
+        m = int(ncm[2])
+        result = chocolateFeast(n, c, m)
+        fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Service Lane
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# # Complete the serviceLane function below.
+# Option 1
+def serviceLane(n, cases):
+    result = []
+    for x,y in cases:
+        result.append(min(width[x:y+1]))
+    return result
+
+# def serviceLane(n, cases):
+#     return [min(width[x:y+1]) for x,y in cases]
+
+# Option 2
+def serviceLane(n, cases):
+    result = []
+    for i in cases:
+        result.append(min(width[i[0]:i[1]+1:1]))
+    return result
+
+# def serviceLane(n, cases):
+#     return [min(width[i[0]:i[1]+1]) for i in cases]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nt = input().split()
+    n = int(nt[0])
+    t = int(nt[1])
+    width = list(map(int, input().rstrip().split()))
+    cases = []
+    for _ in range(t):
+        cases.append(list(map(int, input().rstrip().split())))
+    result = serviceLane(n, cases)
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Lisa's Workbook
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the workbook function below.
+def workbook(n, k, arr):
+    page = 1
+    special = 0
+    for a in arr:
+        for i in range(1, a+1):
+            if (i==page):
+                special += 1
+            if (i%k==0):
+                page += 1
+        if (a%k != 0):
+            page += 1
+    return special
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    arr = list(map(int, input().rstrip().split()))
+    result = workbook(n, k, arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Flatland Space Stations
+"""
+1. Sort the array in incresing order. 
+2. Take the maximum distance from the starting city (0) and from the last city from the nearest station. Also eliminate the case of only 1 staion. 
+3. Now take the maximum distance from the given station to any city using formula (c[i+1]-c[i])/2. Try drawing the diagrams and you will get the formula. 
+4. The maximum value of distance is the answer.
+"""
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the flatlandSpaceStations function below.
+# Option 1
+def flatlandSpaceStations(n, c):
+    c.sort()
+    max_distance = max(c[0], n-1 - c[-1])
+    for i in range(len(c)-1):
+        max_distance = max((c[i+1]-c[i])//2, max_distance)
+    return max_distance
+
+# Option 2
+def flatlandSpaceStations(n, c):
+    c.sort()
+    diff = []
+    for x in range(len(c) + 1):
+        if x == 0:
+            diff.append(c[x])
+        elif x == len(c):
+            diff.append((n - 1) - c[x-1])
+        else:
+            diff.append((c[x] - c[x-1]) // 2)
+    return max(diff)
+
+# Option 3
+def flatlandSpaceStations(n, c):
+    c.sort()
+    maximum = max(c[0], n - c[-1] - 1)    # initialize 
+    for i in range(1, m):
+        d = c[i] - c[i-1]
+        maximum = max(d//2, maximum)
+    return maximum
+
+# Option 4
+def flatlandSpaceStations(n, c):
+    c.sort()
+    return max(c[0],n-1-c[-1],*[(c[i+1]-c[i])//2 for i in range(len(c)-1)])
+    
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nm = input().split()
+    n = int(nm[0])
+    m = int(nm[1])
+    c = list(map(int, input().rstrip().split()))
+    result = flatlandSpaceStations(n, c)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Fair Rations
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the fairRations function below.
+# Option 1
+def fairRations(B):
+    B = [i%2 for i in B]
+    c = 0   #count
+    for i in range(len(B)-1):
+        if B[i] and B[i+1]:
+            B[i] = 0
+            B[i+1] = 0
+            c += 1
+        elif B[i] and not B[i+1]:
+            B[i] = 0
+            B[i+1] = 1
+            c += 1
+    return 'NO' if any(B) else c*2
+
+# Option 2
+def fairRations(B):
+    c = 0   #count
+    for i in range(0, len(B)-1):
+        if B[i]%2 != 0:   #odd
+            c = c+2
+            B[i+1] = B[i+1] + 1
+    return (c if B[-1]%2==0 else 'NO')
+
+# Option 3:
+def fairRations(B):
+    c = 0   #count
+    for i in range(len(B)):
+        try:
+            if B[i]%2 is 1:   #odd
+                c += 2
+                B[i+1] += 1
+        except:
+            return 'NO'
+    return c
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    N = int(input())
+    B = list(map(int, input().rstrip().split()))
+    result = fairRations(B)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Cavity Map
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the cavityMap function below.
+# Option 1
+def cavityMap(grid):
+    result = []
+    for i in range(0,n):
+        each_row = []
+        for j in range(0,n):
+            if i-1<0 or j-1<0 or j+1==n or i+1==n:
+                each_row.append(grid[i][j])
+            elif (max(grid[i-1][j], grid[i][j-1],grid[i+1][j], grid[i][j+1])<grid[i][j]):
+                each_row.append('X')
+            else:
+                each_row.append(grid[i][j])
+        each_row = ''.join(each_row)
+        result.append(each_row)
+    return result
+
+# Option 2
+def cavityMap(grid):
+    length = len(grid)
+    for i in range(length):
+        if i == 0 or i == length-1:
+            continue
+        for j in range(length):
+            if j == 0 or j == length-1:
+                continue
+            if grid[i][j] > grid[i-1][j] and grid[i][j] > grid[i][j-1] and grid[i][j] > grid[i][j+1] and grid[i][j] > grid[i+1][j]:
+                grid[i] = list(grid[i])
+                grid[i][j] = 'X'
+                grid[i] = ''.join(grid[i])
+    return grid
+
+# Option 3 (focus on (n-2)X(n-2) matrix, ignore the borders)
+def cavityMap(grid):
+    for i in range(1,(n-2)+1):
+        for j in range(1,(n-2)+1):
+            if grid[i][j] > max(grid[i-1][j],grid[i+1][j],grid[i][j-1],grid[i][j+1]):
+                grid[i] = list(grid[i])
+                grid[i][j] = 'X'
+    result = []
+    for i in range(n):
+        result.append(''.join(grid[i]))
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    grid = []
+    for _ in range(n):
+        grid_item = input()
+        grid.append(grid_item)
+    result = cavityMap(grid)
+    fptr.write('\n'.join(result))
+    fptr.write('\n')
+    fptr.close()
+
+
+
+
+## Manasa and Stones
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the stones function below.
+# Option 1
+def stones(n, a, b):
+    return sorted(set([a*i+b*(n-1-i) for i in range(n)]))
+
+# Option 2
+from itertools import combinations_with_replacement 
+def stones(n, a, b):
+    result = []
+    combo = list(combinations_with_replacement ([a,b],n-1))
+    for a in combo:
+        result.append(sum(list(a)))
+    return sorted(list(set(result)))
+
+# Option 3
+def stones(n, a, b):
+    result = []
+    for i in range(n):
+        last_stone = (a*i) + b*(n-1-i)
+        result.append(last_stone)
+    result = list(set(result))
+    return sorted(result)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    T = int(input())
+    for T_itr in range(T):
+        n = int(input())
+        a = int(input())
+        b = int(input())
+        result = stones(n, a, b)
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+    fptr.close()
+
+
+
+
+## The Grid Search
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the gridSearch function below.
+# Option 1
+def gridSearch(G, P):
+    lineChecks = 0
+    for i in range(len(G[0])-len(P[0])+1):
+        for j in range(len(G)-len(P)+1):
+            if G[j][i:i+len(P[0])] == P[0]:
+                for x in range(1,len(P)):
+                    if G[j+x][i:i+len(P[0])] == P[x]:
+                        lineChecks +=1
+                        if lineChecks == len(P) - 1:
+                            return 'YES'
+                    else:
+                        lineChecks = 0
+    return 'NO'
+
+# Option 2
+import re
+def gridSearch(G, P):
+    ROW = len(P)
+    COL = len(P[0])
+    for x,y in enumerate(G):
+        for i in (k.start(0) for k in re.finditer('(?=%s)'%P[0], y)):
+            for j in range(1, ROW):
+                if G[j+x][i:i+COL] != P[j]:
+                    break
+            else:
+                return 'YES'
+    return 'NO'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        RC = input().split()
+        R = int(RC[0])
+        C = int(RC[1])
+        G = []
+        for _ in range(R):
+            G_item = input()
+            G.append(G_item)
+        rc = input().split()
+        r = int(rc[0])
+        c = int(rc[1])
+        P = []
+        for _ in range(r):
+            P_item = input()
+            P.append(P_item)
+        result = gridSearch(G, P)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Happy Ladybugs
+"""
+Dont bother swapping characters until you find a valid string. 
+Only need to check for 2 happy conditions:
+1. There are at least one empty cell and there is no Letter with count 1
+OR
+2. There is no empty cell but the given string is happy
+"""
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the happyLadybugs function below.
+# Option 1
+def happyLadybugs(b):
+    for color in set(b):
+        if color != '_' and b.count(color) == 1:
+            return 'NO'
+    
+    if b.count('_') == 0:
+        for i in range(1,n-1):
+            if b[i-1]!=b[i] and b[i+1]!=b[i]:
+                return 'NO'
+    return 'YES'
+
+# Option 2
+from collections import Counter
+def happyLadybugs(b):
+    counter = Counter(b)
+    for key,val in counter.items():
+        if key!='_' and val==1:
+            return 'NO'
+    if '_' in b:
+        return 'YES'
+    for idx in range(1, len(b)):
+        if b[idx]==b[idx-1] or b[idx]==b[idx+1]:
+            continue
+        else:
+            return 'NO'
+    return 'YES'
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    g = int(input())
+    for g_itr in range(g):
+        n = int(input())
+        b = input()
+        result = happyLadybugs(b)
+        fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## Strange Counter
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the strangeCounter function below.
+# Option 1
+def strangeCounter(t):
+    interval = 3
+    while t > interval:
+        t -= interval
+        interval *= 2
+    return (interval-t+1)
+
+# Option 2
+def strangeCounter(t):
+    interval = 3
+    while 2*interval-2 <= t:
+        interval *= 2
+    return interval - (t-(interval-2))
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    result = strangeCounter(t)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## 3D Surface Area
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the surfaceArea function below.
+# Option 1
+def surfaceArea(A):
+    # Pad the grid width a layer of 0
+    # for easier calculation
+    a = [[0] * (len(A[0]) + 2)]
+    for row in A:
+        a.append([0] + row + [0])
+    a.append([0] * (len(A[0]) + 2))
+    
+    # Bottom and top area
+    result = len(A) * len(A[0]) * 2
+    
+    # Side area is just the sum of differences
+    # between adjacent cells. Be careful not to
+    # count a side twice.
+    for i in range(1, len(a)):
+        for j in range(1, len(a[i])):
+            result += abs(a[i][j] - a[i-1][j])
+            result += abs(a[i][j] - a[i][j-1])
+    return result
+
+# Option 2
+def surfaceArea(A):
+    result = 0
+    for i in range(len(A)):   #for list in list
+        for e in range(len(A[i])):   #for cell in list
+            c = A[i][e]
+            s = (c*4)+2
+            if i > 0:   #left side limit
+                s -= min(c,A[i-1][e])*2
+            if e > 0:   #upper limit
+                s -= min(c,A[i][e-1])*2
+            result += s
+    return result
+
+# Option 3
+def surfaceArea(A):
+    result = 0
+    for j in range(0,len(A)):
+        for i in range(0,len(A[0])):
+            result += 2*(1+2*A[j][i])
+    for j in range(0,len(A[0])):        
+        for i in range(0,len(A)-1):
+            result -= min(A[i][j],A[i+1][j])*2
+    for j in range(0,len(A)):        
+        for i in range(0,len(A[0])-1):
+            result -= min(A[j][i],A[j][i+1])*2        
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    HW = input().split()
+    H = int(HW[0])
+    W = int(HW[1])
+    A = []
+    for _ in range(H):
+        A.append(list(map(int, input().rstrip().split())))
+    result = surfaceArea(A)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Absolute Permutation
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the absolutePermutation function below.
+def absolutePermutation(n, k):
+    if k == 0:
+        return [i+1 for i in range(n)]
+    elif n % (2*k) != 0 or 2*k > n: 
+        return [-1]
+    return [(i+1)+(1 if (i//k)%2==0 else -1)*k for i in range(n)]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    t = int(input())
+    for t_itr in range(t):
+        nk = input().split()
+        n = int(nk[0])
+        k = int(nk[1])
+        result = absolutePermutation(n, k)
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+    fptr.close()
+
+
+
+
+## The Bomberman Game
+
+
+
+
+
+
+
+
+
+
+
+
+
+(work in progress)
+
+
+
+
+## end ##

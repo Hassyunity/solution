@@ -1,0 +1,153 @@
+## Ruby
+## Control Structures
+
+
+## Ruby Control Structures - Each
+# use control structure each to iterate through its collections
+# given a method called scoring with an array passed as an argument. Elements of the array are of the class User
+# User class has a method update_score
+# task is to iterate through each of the elements in the array using each and call the method update_score on every element
+
+# Option 1
+def scoring(array)
+    # iterate through each of the element in array using *each* and call update_score on it
+    array.each do |user|
+        user.update_score
+    end
+end
+
+# Option 2
+def scoring(array)
+    # iterate through each of the element in array using *each* and call update_score on it
+    array.each { 
+        |user|
+        user.update_score
+    }
+end
+
+
+
+
+## Ruby Control Structures - Unless
+# given a method called scoring with an array passed as an argument. Elements of the array are of the class User
+# User has two public methods, is_admin? and update_score. 
+# task is to use the control structure unless and update all elements of the array who are not admins
+# unless is the logical equivalent of if not
+
+# Option 1
+def scoring(array)
+    # update_score of every user in the array unless the user is admin
+    array.each do |user|
+        unless user.is_admin?
+            user.update_score
+        end
+    end
+end
+
+# Option 2
+def scoring(array)
+    # update_score of every user in the array unless the user is admin
+    array.each do |user|
+        user.update_score unless user.is_admin?
+    end
+end
+
+# Option 3
+def scoring(array)
+    # update_score of every user in the array unless the user is admin
+    array.each { 
+        |user| 
+        user.update_score unless user.is_admin? 
+    }
+end
+
+
+
+
+## Ruby Control Structures - Infinite Loop
+# An infinite loop in Ruby is of the form
+loop do
+end
+# Use an infinite loop and call the method coder.practice within it and break if coder.oh_one? is true.
+
+# Option 1
+loop do
+    coder.practice
+    if coder.oh_one?
+        break
+    end
+end
+
+# Option 2
+loop do
+    coder.practice
+    break if coder.oh_one?
+end
+
+
+
+
+## Ruby Control Structures - Until
+# Call the method coder.practice until coder.oh_one? becomes true.
+# Use the until control structure.
+# until is the logical equivalent of while not.
+
+# Option 1
+while not coder.oh_one?
+    coder.practice
+end
+
+# Option 2
+until coder.oh_one?
+    coder.practice
+end
+
+# Option 3
+coder.practice until coder.oh_one?
+
+
+
+
+## Ruby Control Structures - Case (Bonus Question)
+# HackerRank is written in RoR and we have various classes defined in it.
+
+# Option 1
+def identify_class(obj)
+    # write your case control structure here
+    case obj
+    when Hacker, Submission, TestCase, Contest
+        puts "It's a #{obj.class}!"
+    else
+        puts "It's an unknown model"
+    end
+end
+
+# Option 2 unrefactored version
+def identify_class(obj)
+    case obj
+    when Hacker
+        puts "It's a Hacker!" 
+    when Submission
+        puts "It's a Submission!"
+    when TestCase
+        puts "It's a TestCase!"
+    when Contest
+        puts "It's a Contest!"
+    else
+        puts "It's an unknown model"
+    end
+end
+
+# # Option 3 (not working)
+# def identify_class(obj)
+#     if obj == Hacker || obj == Submission || obj == TestCase || obj == Contest 
+#         puts "It's a #{obj.class}!" 
+#     else 
+#         puts "It's an unknown model"
+#     end
+# end
+
+
+
+
+## end ##

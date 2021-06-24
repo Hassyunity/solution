@@ -1,0 +1,281 @@
+## Python
+## Numpy
+
+
+## Arrays
+import numpy
+
+# # Option 1:
+# def arrays(arr):
+#     return(numpy.array(arr[::-1], float))
+
+# Option 2:
+def arrays(arr):
+    arr.reverse()
+    arr_new = numpy.array(arr, float)
+    return arr_new
+
+arr = input().strip().split(' ')
+result = arrays(arr)
+print(result)
+
+
+## Shape and Reshape
+# # Option 1
+# import numpy as np
+# print(np.array(input().split(),int).reshape(3,3))
+
+# # Option 2
+# import numpy as np
+# arr = np.array(list(map(int, input().split())))
+# arr.shape = (3,3)
+# print(arr)
+
+# Option 3
+import numpy as np
+arr = np.array(list(map(int, input().split())))
+arr = np.array(arr).reshape(3,3)
+print(arr)
+
+
+## Transpose and Flatten
+# # Option 1
+# import numpy as np
+# row, col = map(int, input().split())
+# arr = np.array([input().split() for _ in range(row)], int)
+# print (arr.transpose())
+# print (arr.flatten())
+
+# Option 2
+import numpy as np
+row, col = map(int, input().split())
+arr = []
+for _ in range(row):
+    inp = [input().split()]
+    arr.extend(inp)
+arr = np.array(arr, int)
+print (arr.transpose())
+print (arr.flatten())
+
+
+## Concatenate
+# Option 1
+import numpy as np
+n, m, p = map(int,input().split())
+arr1 = np.array([input().split() for _ in range(n)], int)
+arr2 = np.array([input().split() for _ in range(m)], int)
+print(np.concatenate( (arr1, arr2), axis=0) )
+
+# # Option 2
+# import numpy as np
+# n, m, p = map(int, input().split())
+# arr = np.array([input().split() for _ in range(n+m)], int)
+# print(arr)
+
+
+## Zeros and Ones
+import numpy as np
+nums = tuple(map(int, input().split()))
+print (np.zeros(nums, dtype = np.int))
+print (np.ones(nums, dtype = np.int))
+
+
+## Eye and Identity
+# # Option 1
+# import numpy as np
+# print(str(np.eye(*map(int,input().split()))).replace('1',' 1').replace('0',' 0'))
+"""
+use replace() function because there's a bug with the test cases, e.g. an error on the part of the problem creator, where there's too much whitespace in the expected output; in expected output every element is shifted one unit right
+"""
+
+# # Option 2
+# import numpy as np
+# np.set_printoptions(legacy='1.13')
+# print(np.eye(*map(int,input().split())))
+
+# Option 3
+import numpy as np
+np.set_printoptions(legacy='1.13')
+n, m = map(int,input().split())
+print(np.eye(n,m))
+
+
+## Array Mathematics
+# # Option 1
+# import numpy as np
+# n,m = map(int, input().split())
+# a,b = (np.array([input().split() for _ in range(n)], dtype=int) for _ in range(2))
+# print(a+b, a-b, a*b, a//b, a%b, a**b, sep='\n')
+
+# Option 2
+import numpy as np
+n,m = map(int,input().split())
+a = np.array([input().split() for _ in range(n)], dtype=int)
+b = np.array([input().split() for _ in range(n)], dtype=int)
+print(a+b)
+print(a-b)
+print(a*b)
+print(a//b)
+print(a%b)
+print(a**b)
+
+# # Option 3
+# import numpy as np
+# n,m = map(int,input().split())
+# lst1=[]
+# lst2=[]
+# for _ in range(n):
+#     lst=list(map(int, input().split()))
+#     lst1.append(lst)
+# a = np.array(lst1)
+# for _ in range(n):
+#     lst=list(map(int, input().split()))
+#     lst2.append(lst)
+# b = np.array(lst2)
+# print(np.add(a,b))
+# print(np.subtract(a, b))
+# print(np.multiply(a, b))
+# print(np.floor_divide(a, b))
+# print(np.mod(a, b))
+# print(np.power(a, b))
+
+
+## Floor, Ceil and Rint
+import numpy as np
+np.set_printoptions(sign=' ')    # output offset with a space
+arr = np.array(input().split(), float)
+print(np.floor(arr))
+print(np.ceil(arr))
+print(np.rint(arr))
+
+
+## Sum and Prod
+# Option 1
+import numpy as np
+N, M = map(int, input().split())
+arr = np.array([input().split() for _ in range(N)], int)
+total = np.sum(arr, axis=0)
+print(np.prod(total, axis=0))
+
+# # Option 2
+# import numpy as np
+# N, M = map(int, input().split())
+# lis = [np.array(input().split(), int) for _ in range(N)]
+# print(np.prod(np.sum(lis, axis = 0)))
+
+"""
+range(N): [0, 1, 2, .... N-1]
+for x in range(N): loop x = 0, x = 1, ..., x = N-1
+for _ in range(N): loop N times
+input().split(): Split input by spaces and prepare list (fr ex 1 2 3 becomes ['1', '2', '3'])
+input().split() for _ in range(N): Read n lines and prepare n lists
+[input().split() for _ in range(N)]: Prepare a list from n lines input containing N times where each item itself is list of strings
+numpy.array([input().split() for _ in range(N)],int): Prepare 2d array from n lines of input with each item of type int
+A = numpy.array([input().split() for _ in range(N)],int): Assign the result to A
+"""
+
+
+## Min and Max
+# # Option 1
+# import numpy as np
+# print(np.max(np.min(np.array([input().split() for _ in range(int(input().split()[0]))],int),axis=1)))
+
+# Option 2
+import numpy as np
+# n, m = map(int, input().split())
+n = int(input().split()[0])
+arr = np.array([input().split() for _ in range(n)], int)
+print(np.max(np.min(arr, axis=1)))
+
+
+## Mean, Var, and Std
+import numpy as np
+np.set_printoptions(legacy='1.13')
+# n,m = map(int, input().split())
+n = int(input().split()[0])
+arr = np.array([input().split() for _ in range(n)], int)
+print(np.mean(arr, axis=1))
+print(np.var(arr, axis=0))
+print(np.std(arr, axis=None))
+
+
+## Dot and Cross
+# Option 1
+import numpy as np
+n = int(input())
+A=np.array([list(map(int,input().split())) for _ in range(n)])
+B=np.array([list(map(int,input().split())) for _ in range(n)])
+print( np.dot(A,B) )
+
+# # Option 2
+# import numpy as np
+# n = int(input())
+# A,B = [np.array([input().split() for _ in range(n)], int) for _ in range(2)]
+# print(np.dot(A,B))
+
+
+## Inner and Outer
+# # Option 1
+# import numpy as np
+# A,B = [np.array([input().split()],int) for _ in range(2)]
+# print(np.inner(A,B)[0][0], np.outer(A,B), sep='\n')
+
+# # Option 2
+# import numpy as np
+# A,B = [np.array(input().split(), int) for _ in range(2)]
+# print(np.inner(A,B), np.outer(A,B), sep='\n')
+
+# Option 3
+import numpy as np
+A=np.array(input().split(),int)
+B=np.array(input().split(),int)
+print(np.inner(A,B))
+print(np.outer(A,B))
+
+
+## Polynomials
+"""
+You are given the coefficients of a polynomial Y = a x^n + b x^(n-1) + … + k.
+Your task is to find the value of Y at point x.
+"""
+# # Option 1
+# print(__import__('numpy').polyval(list(map(float,input().split())),float(input())))
+
+# Option 2
+import numpy as np
+coeff = list(map(float,input().split()))
+x = int(input())
+print( np.polyval(coeff,x) )
+
+# # Option 3
+# import numpy as np
+# if __name__ == '__main__':
+#     coefficients = np.array(list(map(float, input().split())))
+#     poly = np.poly1d(coefficients)
+#     print(poly(int(input())))
+
+
+## Linear Algebra
+## output needs to be rounded to 2 decimal points
+# # Option 1
+# import numpy as np
+# print(round(np.linalg.det(np.array([input().split() for _ in range(int(input()))],float)),2))
+
+# Option 2
+import numpy as np
+n=int(input())
+a=np.array([input().split() for _ in range(n)],float)
+np.set_printoptions(legacy='1.13') #version issues in this exercise
+print(np.linalg.det(a))
+
+# # Option 3
+# import numpy as np   # importing numpy package
+# n = int(input())   # nxn array.
+# a = []   # init array
+# for i in range(n):
+#     c = list(map(float, input().split()))
+#     a.append(c)
+# print(round(np.linalg.det(a),2))  # determinant round to 2 places
+
+
+## end ##

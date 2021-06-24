@@ -1,0 +1,221 @@
+## Python
+## Strings
+
+
+## sWAP cASE
+def swap_case(s):
+    result = ''.join([i.lower() if i.isupper() else i.upper() for i in s])
+    return result
+
+if __name__ == '__main__':
+    s = input()
+    result = swap_case(s)
+    print(result)
+
+
+## String Split and Join
+def split_and_join(line):
+    # write your code here
+    line_list = line.split(" ")
+    return "-".join(line_list)
+
+if __name__ == '__main__':
+    line = input()
+    result = split_and_join(line)
+    print(result)
+
+
+## What's Your Name?
+def print_full_name(a, b):
+    print("Hello", a, b, end="")
+    print("! You just delved into python.")
+    return
+
+if __name__ == '__main__':
+    first_name = input()
+    last_name = input()
+    print_full_name(first_name, last_name)
+
+
+## Mutations
+def mutate_string(string, position, character):
+    l = list(string)
+    l[position] = character
+    result = ''.join(l)
+    return result
+
+if __name__ == '__main__':
+    s = input()
+    i, c = input().split()
+    s_new = mutate_string(s, int(i), c)
+    print(s_new)
+
+
+## Find a string
+def count_substring(string, sub_string):
+    count = 0
+    for i in range(len(string)-len(sub_string)+1):
+        if string[i:i+len(sub_string)] == sub_string:
+            count+=1
+    return count
+
+if __name__ == '__main__':
+    string = input().strip()
+    sub_string = input().strip()
+    
+    count = count_substring(string, sub_string)
+    print(count)
+
+
+## String Validators
+if __name__ == '__main__':
+    s = input()
+
+print(any(c.isalnum() for c in s))
+print(any(c.isalpha() for c in s))
+print(any(c.isdigit() for c in s))
+print(any(c.islower() for c in s))
+print(any(c.isupper() for c in s))
+
+
+## Text Alignment
+#Replace all ______ with rjust, ljust or center. 
+
+thickness = int(input()) #This must be an odd number
+c = 'H'
+
+#Top Cone
+for i in range(thickness):
+    print((c*i).rjust(thickness-1)+c+(c*i).ljust(thickness-1))
+
+#Top Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))
+
+#Middle Belt
+for i in range((thickness+1)//2):
+    print((c*thickness*5).center(thickness*6))    
+
+#Bottom Pillars
+for i in range(thickness+1):
+    print((c*thickness).center(thickness*2)+(c*thickness).center(thickness*6))    
+
+#Bottom Cone
+for i in range(thickness):
+    print(((c*(thickness-i-1)).rjust(thickness)+c+(c*(thickness-i-1)).ljust(thickness)).rjust(thickness*6))
+
+
+## Text Wrap
+import textwrap
+
+def wrap(string, max_width):
+    return textwrap.fill(string, max_width)
+
+if __name__ == '__main__':
+    string, max_width = input(), int(input())
+    result = wrap(string, max_width)
+    print(result)
+
+
+## Designer Door Mat
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+n, m = map(int,input().split())
+pattern = [('.|.'*(2*i + 1)).center(m, '-') for i in range(n//2)]
+print('\n'.join(pattern + ['WELCOME'.center(m, '-')] + pattern[::-1]))
+
+
+## String Formatting
+def print_formatted(number):
+    width = len('{0:b}'.format(number))
+    for i in range(1,n+1):
+        print('{0:{width}d} {0:{width}o} {0:{width}X} {0:{width}b}'.format(i, width=width))
+
+if __name__ == '__main__':
+    n = int(input())
+    print_formatted(n)
+
+
+## Alphabet Rangoli
+import string
+
+def print_rangoli(n):
+    # your code goes here
+    alpha = string.ascii_lowercase
+    L = []
+    for i in range(n):
+        s = '-'.join(alpha[i:n])
+        L.append((s[::-1]+s[1:]).center(4*n-3, '-'))
+    print('\n'.join(L[:0:-1]+L))
+    return
+
+if __name__ == '__main__':
+    n = int(input())
+    print_rangoli(n)
+
+
+##  Capitalize!
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the solve function below.
+def solve(s):
+    for x in s[:].split():
+        s = s.replace(x, x.capitalize())
+    return s
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = solve(s)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+## The Minion Game
+def minion_game(string):
+    vowels = 'AEIOU'
+    kevin_score = 0
+    stuart_score = 0
+    for i in range(len(string)):
+        if string[i] in vowels:
+            kevin_score += (len(string)-i)
+        else:
+            stuart_score += (len(string)-i)
+    if kevin_score > stuart_score:
+        print("Kevin", kevin_score)
+    elif kevin_score < stuart_score:
+        print("Stuart", stuart_score)
+    else:
+        print("Draw")
+
+if __name__ == '__main__':
+    s = input()
+    minion_game(s)
+
+
+##  Merge the Tools!
+def merge_the_tools(string, k):
+    k = int(k)
+    for i in range(0, len(string), k):
+        sub_text = string[i:i+k]
+        unique = ''
+        for char in sub_text:
+            if char not in unique:
+                unique += char
+        print(unique)
+
+if __name__ == '__main__':
+    string, k = input(), int(input())
+    merge_the_tools(string, k)
+
+
+## end ##
+
+
+

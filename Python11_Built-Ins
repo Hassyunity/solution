@@ -1,0 +1,112 @@
+## Python
+## Built-Ins
+
+
+## Zipped!
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# n, x = map(int, input().split())
+# input_list = []
+# for _ in range(x):
+#     input_list.append([float(i) for i in input().split()])
+# zipped = list(zip(*input_list))
+# for i in range(n):
+#     print('{:.1f}'.format(sum(zipped[i])/len(zipped[i])))
+
+# Option 2
+n, x = map(int, input().split()) 
+input_list = []
+for _ in range(x):
+    input_list.append( map(float, input().split()) ) 
+for marks in zip(*input_list): 
+    print( sum(marks)/len(marks) )
+
+
+## input()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# x,k = map(int, input().split())
+# print(eval(input()) == k)
+
+# Option 2
+x,k = [int(_) for _ in input().split()]
+print('True' if eval(input())==k else 'False')
+
+
+## Python Evaluation
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+input_str = input()
+eval(input_str)
+
+
+## Athlete Sort
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    nm = input().split()
+    n = int(nm[0])
+    m = int(nm[1])
+    
+    # # Option 1
+    # arr = []
+    # for _ in range(n):
+    #     arr.append(list(map(int, input().rstrip().split())))
+    # k = int(input())
+    # for row in sorted(arr, key=lambda row: int(row[k])):
+    #     print(*row)
+
+    # Option 2
+    arr = []
+    for _ in range(n):
+        arr.append(list(map(int, input().rstrip().split())))
+    k = int(input())
+    for row in sorted(arr, key=lambda arr: arr[k]):
+        print(*row)
+
+    # # Option 3 (a little slower)
+    # from operator import itemgetter
+    # arr = [[int(i) for i in input().split()] for _ in range(n)]
+    # k = int(input())
+    # for row in sorted(arr, key=itemgetter(k)):
+    #     print(*row)
+
+
+## Any or All
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# n = int(input())
+# arr = input().split()
+# print(all([int(i)>0 for i in arr]) and any([j == j[::-1] for j in arr]))
+
+# Option 2 uses generators (iso list) so execution time is less
+n = int(input())
+arr = input().split()
+print(all(int(i)>0 for i in arr) and any(j == j[::-1]for j in arr))
+
+
+## ginortS (ie, Sorting)
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# print(*sorted(input(), key=lambda c: (-ord(c) >> 5, c in '02468', c)), sep='')
+
+# # Option 2
+# print(*sorted(input(), key=lambda c: (c.isdigit() - c.islower(), c in '02468', c)), sep='')
+
+# # Option 3
+# order = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1357902468'
+# print(*sorted(input(), key=order.index), sep='')
+
+# Option 4
+import string
+print(*sorted(input(), key=(string.ascii_letters + '1357902468').index), sep='')
+
+
+## end ##

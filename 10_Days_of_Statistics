@@ -1,0 +1,497 @@
+Hackerrank
+10 Days of Statistics
+
+
+
+
+# Day 0: Mean, Median, and Mode
+n = int(input())
+number_list = list(map(int, input().split()))
+import numpy as np
+Mean = np.mean(number_list)
+Median = np.median(number_list)
+from scipy import stats
+Mode = int(stats.mode(number_list)[0])
+print(round(Mean,1), Median, Mode, sep = '\n')
+
+
+# Day 0: Weighted Mean
+N = input()
+X = list(map(int, input().strip().split(' ')))
+W = list(map(int, input().strip().split(' ')))
+sum_X = sum([a*b for a,b in zip(X,W)])
+print(round((sum_X/sum(W)),1))
+
+
+
+
+# Day 1: Quartiles
+from statistics import median
+n = int(input())
+x = sorted(list(map(int, input().split())))
+print(int(median(x[ :n//2])))
+print(int(median(x)))
+print(int(median(x[(n+1)//2: ])))
+
+
+# Day 1: Interquartile Range
+n = input()
+x_list = input()
+x_list = [int(x) for x in x_list.split()]
+freq = input()
+freq = [int(x) for x in freq.split()]
+
+new_list = []
+for i in range(len(x_list)):
+    for j in range(freq[i]):
+        new_list.append(x_list[i])
+
+from statistics import median
+n = len(new_list)
+x = sorted(new_list)    
+Q1 = median(x[:n//2])
+Q3 = median(x[(n+1)//2:])
+print("{:.1f}".format(Q3-Q1))
+
+
+# Day 1: Standard Deviation
+n = int(input())
+numbers = list(map(int, input().split()))
+mean = sum(numbers) / n
+variance = sum([((x - mean) ** 2) for x in numbers]) / n
+stddev = variance ** 0.5
+print("{:.1f}".format(stddev))
+
+
+
+
+# Day 2: Basic Probability
+In a single toss of 2 fair (evenly-weighted) six-sided dice, find the probability that their sum will be at most 9.
+= 1 - P(10) - P(11) - P(12)
+= 1 - P(5,5 or 6,4) - P(5,6) - P(6,6)
+= 1 - (1/6*1/6 + 2*1/6*1/6) - (2*1/6*1/6) - (1/6*1/6)
+= 1 - (1/36 + 2/36) - (2/36) - (1/36)
+= 1 - 6/36
+= 1 - 1/6
+= 5/6
+Answer: 5/6
+
+
+# Day 2: More Dice
+In a single toss of 2 fair (evenly-weighted) six-sided dice, find the probability that the values rolled by each die will be different and the two dice have a sum of 6.
+= P(1,5) + P(2,4) + P(4,2) + P(5,1)
+= (1/6*1/6) + (1/6*1/6) + (1/6*1/6) + (1/6*1/6)
+= 4/36
+= 1/9
+Answer: 1/9
+
+
+# Day 2: Compound Event Probability
+There are 3 urns labeled X, Y, and Z.
+Urn X contains 4 red balls and 3 black balls.
+Urn Y contains 5 red balls and 4 black balls.
+Urn Z contains 4 red balls and 4 black balls.
+One ball is drawn from each of the 3 urns. What is the probability that, of the 3 balls drawn, 2 are red and 1 is black?
+
+Solution:
+Urn X has a 4/7 probability of giving a red ball
+Urn Y has a 5/9 probability of giving a red ball
+Urn Z has a 1/2 probability of giving a red ball
+
+Urn X has a 3/7 probability of giving a black ball
+Urn Y has a 4/9 probability of giving a black ball
+Urn Z has a 1/2 probability of giving a black ball
+
+P(2 red, 1 black)
+= P(Red Red Black) + P(Red Black Red) + P(Black Red Red)
+= (4/7)(5/9)(1/2) + (4/7)(4/9)(1/2) + (3/7)(5/9)(1/2)
+= 20/126 + 16/126 + 15/126
+= 51/126
+= 17/42
+
+Answer: 17/42
+
+
+
+
+# Day 3: Conditional Probability
+Suppose a family has 2 children, one of which is a boy. What is the probability that both children are boys?
+All possible outcomes: BB, BG, GB, GG
+Given one of them is a boy, all possible outcomes become: BB, BG, GB
+ie, denominator becomes 3
+P(BB) = 1/3
+Answer: 1/3
+
+
+# Day 3: Cards of the Same Suit
+You draw 2 cards from a standard 52-card deck without replacing them. What is the probability that both cards are of the same suit?
+= 52/52 * 12/51
+= 1 * 12/51
+= 12/51
+Answer: 12/51
+
+
+# Day 3: Drawing Marbles
+A bag contains 3 red marbles and 4 blue marbles. Then, 2 marbles are drawn from the bag, at random, without replacement. If the first marble drawn is red, what is the probability that the second marble is blue?
+If first marble drawn is red, bag now has 2 red marbles and 4 blue marbles
+P(second marble is blue) = 4 / (2+4) = 4/6 = 2/3
+Answer: 2/3
+
+
+
+
+# Day 4: Binomial Distribution I
+import math
+
+def binomial_prob(n, p, x):
+    b = (math.factorial(n)/(math.factorial(x)*math.factorial(n-x)))*(p**x)*((1-p)**(n-x))
+    return(b)
+
+boy, girl = map(float, input().split())
+n = 6
+p = boy/(boy+girl)
+b = 0
+for x in range(3,7): # x=3,4,5,6
+    b += binomial_prob(n, p, x)   
+print("%.3f" %b)
+
+
+# Day 4: Binomial Distribution II
+import math
+
+def binomial_prob(n, p, x):
+    b = (math.factorial(n)/(math.factorial(x)*math.factorial(n-x)))*(p**x)*((1-p)**(n-x))
+    return(b)
+
+reject_percent, n = map(float, '12 10'.split())
+p = reject_percent/100
+b = 0
+for x in range(0,3): # x=0,1,2
+    b += binomial_prob(n, p, x)   
+print("%.3f" %b)
+print(round(sum([binomial_prob(n, p, i) for i in range(2, 11)]), 3))  # x=2,3,4,...,10
+
+
+# Day 4: Geometric Distribution I
+# X is a geometric random variable
+# x is the number of trials required until the first success occurs
+# p = probability of success in each trial = 1/3
+
+# probability that a specified number of trials will take place before the first success occurs
+# P(X = x) = (1-p)**(x–1) * p   # x = 1st, 2nd, 3rd, etc
+# Reference: https://www.dummies.com/education/math/business-statistics/how-to-calculate-geometric-probabilities/
+
+def geometric_prob(p, x):
+    g = (1-p)**(x-1) * p
+    return(g)
+
+numerator, denominator = map(float, input().split())
+x = int(input())
+p = numerator/denominator
+g = geometric_prob(p, x)  
+print("%.3f" %g)
+
+
+# Day 4: Geometric Distribution II
+# probability that defect is found during the first 5 inspections, 
+# ie, 1st batch defect, 2nd batch defect,.., 5th batch defect
+
+def geometric_prob(p, x):
+    g = (1-p)**(x-1) * p
+    return(g)
+
+numerator, denominator = map(float, input().split())
+x = int(input())
+p = numerator/denominator
+g = 0
+for i in range(1,6): # i=1,2,3,4,5
+    g += geometric_prob(p, i)   
+print("%.3f" %g)
+
+
+
+
+# Day 5: Poisson Distribution I
+# X = poisson random variable
+# x = number of successes that occur in a specified region
+# mean = mean number of successes that occur in a specified region
+# exp = constant = approximately 2.71828
+# P(X = x) = ((mean ** k) * exp(-mean)) / factorial(k)
+# Reference: https://stattrek.com/probability-distributions/poisson.aspx
+
+from math import factorial, exp
+
+miu = float(input())
+x = int(input())
+poisson = ((miu ** x) * exp(-miu)) / factorial(x)
+print("%.3f" % poisson)
+
+
+# Day 5: Poisson Distribution II
+# Given cost_A = 160 + 40*X**2
+# Expectation of cost_A
+# E(cost_A) = E(160 + 40*X**2)
+# = E(160) + E(40*X**2)
+# = 160 + 40*E(X**2)
+# By definition, E(X**2) = E(X) + (E(X))**2 and E(X) = miu_A
+# Therefore E(cost_A) = 160 + 40*(miu_A + (miu_A)**2)
+
+# Given cost_B = 128 + 40*Y**2
+# Expectation of cost_B
+# E(cost_B) = E(128 + 40*Y**2)
+# = E(128) + E(40*Y**2)
+# = 128 + 40*E(Y**2)
+# By definition, E(Y**2) = E(Y) + (E(Y))**2 and E(Y) = miu_B
+# Therefore E(cost_B) = 128 + 40*(miu_B + (miu_B)**2)
+
+miu_A, miu_B = map(float, input().split())
+
+cost_A = 160 + 40*(miu_A + miu_A**2)
+print(round(cost_A, 3))
+cost_B = 128 + 40*(miu_B + miu_B**2)
+print(round(cost_B, 3))
+
+
+# Day 5: Normal Distribution I
+# X = normal random variable 
+# X ~ N(miu, stdev)
+# miu = mean of normal distribution
+# stdev = standard deviation of normal distribution
+# x = number of successful outcome
+# P(X < x) = 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+# Note: P(X < x) = P(X <= x) because P(X = x) = 0 for continuous probability distribution function
+# P( a < X < b ) = P(X < b) - P(X < a)
+
+import math
+
+miu, stdev = map(float, '20 2'.split())  # map(float, input().split())
+limit = 19.5 # float(input())
+limit1, limit2 = map(float, '20 22'.split())  # map(float, input().split())
+
+def normal_prob(miu, stdev, x):
+    return 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+
+print( '{:.3f}'.format(normal_prob(miu, stdev, limit)) )
+print( '{:.3f}'.format(normal_prob(miu, stdev, limit2) - normal_prob(miu, stdev, limit1)) )
+
+
+# Day 5: Normal Distribution II
+# X = normal random variable, ie, X ~ N ( miu, stdev )
+# miu = mean of normal distribution
+# stdev = standard deviation of normal distribution
+# x = number of successful outcome
+# P(X < x) = 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+# Note: P(X < x) = P(X <= x) because P(X = x) = 0 for continuous probability distribution function
+# P(a < X < b) = P(X < b) - P(X < a)
+# P(X > c) = 1 - P(X < c)
+
+import math
+
+miu, stdev = map(float, input().split())
+limit1 = float(input())
+limit2 = float(input())
+
+def normal_prob(miu, stdev, x):
+    return 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+
+print( '%.2f' %((1 - normal_prob(miu, stdev, limit1)) *100) )
+print( '%.2f' %((1 - normal_prob(miu, stdev, limit2)) *100) )
+print( '%.2f' %(normal_prob(miu, stdev, limit2) *100) )
+# note: need to output percentage (not probability)
+
+
+
+
+# Day 6: The Central Limit Theorem I
+import math
+
+def normal_prob(miu, stdev, x):
+    return 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+
+weight_limit = float(input())
+n = int(input())
+[miu, stdev] = [float(input()) for _ in range(2)]
+
+# By Central Limit Thereom, for large n, 
+# S ~ N(miu_S, stdev_S) approximately
+miu_S = n*miu
+stdev_S = (n**0.5)*stdev
+
+# To find P(S < weight_limit)
+print( '%.4f' %normal_prob(miu_S, stdev_S, weight_limit) )
+
+
+# Day 6: The Central Limit Theorem II
+import math
+
+def normal_prob(miu, stdev, x):
+    return 0.5 + 0.5*math.erf((x-miu)/(stdev * 2**0.5))
+
+ticket_limit = float(input())
+n = int(input())
+[miu, stdev] = [float(input()) for _ in range(2)]
+
+# By Central Limit Thereom, for large n, 
+# S ~ N(miu_S, stdev_S) approximately
+# S = total sum of tickets purchased by 100 students
+miu_S = n*miu
+stdev_S = (n**0.5)*stdev
+
+# To find P(S < ticket_limit)
+print( '%.4f' %normal_prob(miu_S, stdev_S, ticket_limit) )
+
+
+# Day 6: The Central Limit Theorem III
+# Normal distribution describes that
+# 68% population will fall between range +-1 stdev from mean
+# 95% population will fall between range +-2 stdev from mean
+# 99.7% population will fall between range +-3 stdev from mean
+# Reference: https://en.wikipedia.org/wiki/68–95–99.7_rule
+# Prob( m-z*s < X < m+z*s ) = 0.95
+# z = 1.96
+
+n = int(input())
+[miu, stdev] = [float(input()) for _ in range(2)]  # 500, 80
+[prob, z] = [float(input()) for _ in range(2)]  # 0.95, 1.96
+# population mean ~ N(miu, stdev)
+# sample mean ~ N(miu, s), where s = sample stdev = stdev/n**0.5
+s = stdev/n**0.5
+# lower limit
+print('%.2f' %(miu - z*s))
+# upper limit
+print('%.2f' %(miu + z*s))
+
+
+
+
+# Day 7: Pearson Correlation Coefficient I
+n = int(input())
+X = list(map(float,input().strip().split()))
+Y = list(map(float,input().strip().split()))
+
+miu_x = sum(X) / n
+miu_y = sum(Y) / n
+
+stdev_x = (sum([(i - miu_x)**2 for i in X]) / n)**0.5
+stdev_y = (sum([(i - miu_y)**2 for i in Y]) / n)**0.5
+
+covariance = sum([(X[i] - miu_x) * (Y[i] -miu_y) for i in range(n)])
+correlation_coefficient = covariance / (n * stdev_x * stdev_y)
+print(round(correlation_coefficient,3))
+
+
+# Day 7: Spearman's Rank Correlation Coefficient
+def get_rank(X):
+    x_rank = dict((x, i+1) for i, x in enumerate(sorted(set(X))))
+    return [x_rank[x] for x in X]
+    
+n = int(input())
+X = list(map(float, input().split()))
+Y = list(map(float, input().split()))
+
+rx = get_rank(X)
+ry = get_rank(Y)
+
+d = [(rx[i] -ry[i])**2 for i in range(n)]
+r_s = 1 - (6 * sum(d)) / (n * (n*n - 1))
+print('%.3f' % r_s)
+
+
+
+
+# Day 8: Least Square Regression Line
+# Example 1: using maths formula
+# x = [95,85,80,70,60]
+# y = [85,95,70,65,70]
+x, y = [], []
+for _ in range(5):
+    i = input().split()
+    x.append(int(i[0]))
+    y.append(int(i[1]))
+n = len(x)
+x_sum = sum(x)
+x_sum_sqr = x_sum**2
+x_sqr_sum = sum([x_i**2 for x_i in x])
+y_sum = sum(y)
+sum_prod_xy = 0
+for x_i,y_i in zip(x,y):
+    sum_prod_xy += (x_i*y_i)
+b = (n*sum_prod_xy - x_sum*y_sum) / (n*x_sqr_sum - x_sum_sqr)
+y_mean = y_sum/n
+x_mean = x_sum/n
+a = y_mean - b*x_mean
+
+# to make prediction
+x_test = 80
+y_test = a + b * x_test
+print("%.3f" %y_test)   # 78.288
+
+# # Example 2: using Pearson correlation coefficient
+# from statistics import mean, pstdev
+# def pearson(x, y):
+#     n = len(x)
+#     mx, sx, my, sy = mean(x), pstdev(x), mean(y), pstdev(y)
+#     return sum((xi - mx) * (yi - my) for xi, yi in zip(x, y)) / (n * sx * sy)
+# def linear_regression(x, y):
+#     b = pearson(x, y) * pstdev(y) / pstdev(x)
+#     return mean(y) - b * mean(x), b
+# # x = [95,85,80,70,60]
+# # y = [85,95,70,65,70]
+# x, y = [], []
+# for _ in range(5):
+#     i = input().split()
+#     x.append(int(i[0]))
+#     y.append(int(i[1]))
+# a, b = linear_regression(x, y)
+
+# # to make prediction
+# x_test = 80
+# y_test = a + b * x_test
+# print("%.3f" %y_test)   # 78.288
+
+
+# Day 8: Pearson Correlation Coefficient II
+The regression line of y on x is 3x + 4y + 8 = 0, and the regression line of x on y is 4x + 3y + 7 = 0. 
+What is the value of the Pearson correlation coefficient?
+Answer: -3/4
+
+
+
+
+# Day 9: Multiple Linear Regression
+import numpy as np
+# import data
+[m,n] = list(map(int, input().split()))
+x,y = [],[]
+for _ in range(n):
+    data = input().strip().split(' ')
+    x.append(data[0:m])
+    y.append(data[-1])
+X = np.array(x, float)
+y = np.array(y, float)
+q = int(input().strip())
+X_query = []
+for _ in range(q):
+    X_query.append(input().strip().split(' '))
+X_query = np.array(X_query, float)
+
+#center
+X_R = X - np.mean(X, axis=0)
+y_R = y - np.mean(y)
+
+#calculate beta
+beta = np.dot(np.linalg.inv(np.dot(X_R.T,X_R)), np.dot(X_R.T,y_R))
+
+#predict
+X_query_R = X_query - np.mean(X, axis=0)
+y_query_R = np.dot(X_query_R, beta)
+y_query = y_query_R + np.mean(y)
+
+#print
+for i in y_query:
+    print(round(float(i), 2))
+
+
+
+
+## end ##

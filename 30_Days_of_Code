@@ -1,0 +1,860 @@
+## Hackerrank
+## 30 Days of Code
+
+
+
+
+# Day 0: Hello, World.
+# Read a full line of input from stdin and save it to our dynamically typed variable, input_string.
+input_string = input()
+
+# Print a string literal saying "Hello, World." to stdout.
+print('Hello, World.')
+
+# TODO: Write a line of code here that prints the contents of input_string to stdout.
+print(input_string)
+
+
+
+
+# Day 1: Data Types
+# Declare second integer, double, and String variables.
+int_2 = input()
+double_2 = input()
+string_2 = input()
+
+# Read and save an integer, double, and String to your variables.
+sum_int = i + int(int_2)
+sum_double = d + float(double_2)
+sum_string = s + str(string_2)
+
+# Print the sum of both integer variables on a new line.
+print(sum_int)
+
+# Print the sum of the double variables on a new line.
+print(sum_double)
+
+# Concatenate and print the String variables on a new line
+# The 's' variable above should be printed first.
+print(sum_string)
+
+
+
+
+# Day 2: Operators
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the solve function below.
+def solve(meal_cost, tip_percent, tax_percent):
+    a = meal_cost
+    b = a*tip_percent/100
+    c = a*tax_percent/100
+    total = a+b+c
+    print('{:.0f}'.format(total))
+    return 
+
+if __name__ == '__main__':
+    meal_cost = float(input())
+    tip_percent = int(input())
+    tax_percent = int(input())
+    solve(meal_cost, tip_percent, tax_percent)
+
+
+
+
+# Day 3: Intro to Conditional Statements
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    N = int(input())
+
+if N % 2 == 1:
+    print('Weird')
+elif N % 2 == 0:
+    if N >=6 and N <= 20:
+        print('Weird')
+    elif N == 2 or N == 4 or N > 20:
+        print('Not Weird')
+
+# If  is odd, print Weird
+# If  is even and in the inclusive range of 2 to 5, print Not Weird
+# If  is even and in the inclusive range of 6 to 20, print Weird
+# If  is even and greater than 20, print Not Weird
+
+
+
+
+# Day 4: Class vs. Instance
+class Person:
+    def __init__(self, initialAge):
+        # to run some checks on initialAge
+        if initialAge < 0:
+            print("Age is not valid, setting age to 0.")
+        else:
+            self.age = initialAge
+
+    def amIOld(self):
+        # print out the correct statement to the console
+        if age < 13:
+            print("You are young.")
+        elif 13 <= age < 18:
+            print("You are a teenager.")
+        elif age >= 18:
+            print("You are old.")
+
+    def yearPasses(self):    
+        # Increment the age of the person in here
+        global age
+        age += 1
+
+
+
+
+# Day 5: Loops
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    n = int(input())
+
+for i in range(1,11):
+    print(n, 'x', i, '=', n*i)
+
+
+# Day 6: Let's Review
+n = int(input())  # number of strings
+for _ in range(n):
+    word = input()
+    print(word[::2], word[1::2])  # print even letters, odd letters
+
+
+
+
+# Day 7: Arrays
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    n = int(input())
+    arr = list(map(str, input().rstrip().split()))
+    new_arr = []
+    for element in arr:
+        new_arr.insert(0, element)
+    print(' '.join(new_arr))
+
+
+
+
+# Day 8: Dictionaries and Maps
+# n = int(input())
+# phonebook = {}
+# for _ in range(n):
+#     input_list = input().split()
+#     phonebook[input_list[0]] = input_list[1]
+#
+# for _ in range(n):
+#     try:
+#         name = input()
+#     except: 
+#         break
+#
+#     if name in phonebook:
+#         print(name, '=', phonebook[name], sep='')
+#     else : print('Not found')   
+
+phonebook={}
+for _ in range(int(input())):
+    name, num = input().split()
+    # if type(name)==int:
+    #     print("Not found")
+    # else:
+    phonebook[name] = int(num)
+
+while 1:
+    try:
+        name = input()
+        print(f"{name}={phonebook[name]}")
+    except KeyError:
+        print(f"Not found")
+    except EOFError:
+        break
+
+
+
+
+# Day 9: Recursion 3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the factorial function below.
+def factorial(n):
+    if n == 1 or n == 0:
+        return 1
+    else:
+        return n * factorial(n-1)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    result = factorial(n)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+# Day 10: Binary Numbers
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    n = int(input())
+    b = bin(n)[2:]
+    #print(b)
+    b = b.split('0')
+    #print(b)
+    print(len(max(b)))
+
+
+
+
+# Day 11: 2D Arrays
+import math
+import os
+import random
+import re
+import sys
+
+arr = []
+for _ in range(6):
+    arr.append(list(map(int, input().rstrip().split())))
+
+hourglass_sum = []
+for i in range(0,4):
+    for j in range(0,4):
+        total = sum([sum(x[i:i+3]) for x in arr[j:j+3]]) - arr[j+1][i] - arr[j+1][i+2]
+        hourglass_sum.append(total)
+
+print(max(hourglass_sum))
+
+
+
+
+# Day 12: Inheritance
+class Person:
+	def __init__(self, firstName, lastName, idNumber):
+		self.firstName = firstName
+		self.lastName = lastName
+		self.idNumber = idNumber
+	def printPerson(self):
+		print("Name:", self.lastName + ",", self.firstName)
+		print("ID:", self.idNumber)
+
+class Student(Person):
+    #   Class Constructor
+    #   
+    #   Parameters:
+    #   firstName - A string denoting the Person's first name.
+    #   lastName - A string denoting the Person's last name.
+    #   id - An integer denoting the Person's ID number.
+    #   scores - An array of integers denoting the Person's test scores.
+    #
+    # Write your constructor here
+    def __init__(self, firstName, lastName, idNumber,scores):
+        self.firstName = firstName
+        self.lastName = lastName
+        self.idNumber = idNumber
+        self.scores = scores
+    #   
+    #   Function Name: calculate
+    #   Return: A character denoting the grade.
+    #
+    # Write your function here
+    def calculate(self):
+        av = sum(self.scores)/len(self.scores)
+        return {
+                av < 40: 'T',
+                40 <= av < 55: 'D',
+                55 <= av < 70: 'P',
+                70 <= av < 80: 'A',
+                80 <= av < 90: 'E',
+                90 <= av <= 100: 'O'
+        }[True]
+
+line = input().split()
+
+
+
+
+# Day 13: Abstract Classes
+from abc import ABCMeta, abstractmethod
+class Book(object, metaclass=ABCMeta):
+    def __init__(self,title,author):
+        self.title=title
+        self.author=author   
+    @abstractmethod
+    def display(): pass
+
+#Write MyBook class
+class MyBook(Book):
+    def __init__(self, title, author, price):
+        super(Book, self).__init__()
+        self.price = price 
+    def display(self):
+        print('Title: ' + title)
+        print('Author: ' + author)
+        print('Price: ' + str(price))
+
+title=input()
+author=input()
+price=int(input())
+new_novel=MyBook(title,author,price)
+new_novel.display()
+
+
+
+
+# Day 14: Scope
+class Difference:
+    def __init__(self, a):
+        self.__elements = a
+
+    def computeDifference(self):
+        self.maximumDifference = abs( sorted(a)[0] - sorted(a)[-1] )
+# End of Difference class
+
+_ = input()
+a = [int(e) for e in input().split(' ')]
+
+d = Difference(a)
+d.computeDifference()
+
+print(d.maximumDifference)
+
+
+
+
+# Day 15: Linked List
+class Node:
+    def __init__(self,data):
+        self.data = data
+        self.next = None 
+class Solution: 
+    def display(self,head):
+        current = head
+        while current:
+            print(current.data,end=' ')
+            current = current.next
+
+    def insert(self,head,data): 
+        if head == None:
+            self.head=Node(data)
+        else:
+            temp = self.head
+            while self.head.next != None:
+                self.head = self.head.next
+            self.head.next = Node(data)
+            self.head = temp
+        return self.head
+
+mylist= Solution()
+T=int(input())
+head=None
+for i in range(T):
+    data=int(input())
+    head=mylist.insert(head,data)    
+mylist.display(head); 	  
+
+
+
+
+# Day 16: Exceptions - String to Integer
+import sys
+S = input().strip()
+try:
+    print(int(S))
+except:
+    print("Bad String")
+
+
+
+
+# Day 17: More Exceptions
+#Write your code here
+class Calculator(object):
+    def power(self, n, p):
+        if n<0 or p<0:
+            raise Exception('n and p should be non-negative')
+        else:
+            return n**p
+
+myCalculator=Calculator()
+T=int(input())
+for i in range(T):
+    n,p = map(int, input().split())
+    try:
+        ans=myCalculator.power(n,p)
+        print(ans)
+    except Exception as e:
+        print(e) 
+
+
+
+
+# Day 18: Queues and Stacks
+import sys
+from queue import Queue
+
+class Solution:
+    # Write your code here
+    stck = []
+    q = Queue()
+
+    def pushCharacter(self, ch):
+        self.stck.append(ch)
+    
+    def enqueueCharacter(self, ch):
+        self.q.put(ch)
+    
+    def popCharacter(self):
+        return self.stck.pop()
+
+    def dequeueCharacter(self):
+        return self.q.get()
+
+# read the string s
+s=input()
+#Create the Solution class object
+obj=Solution()   
+
+l=len(s)
+# push/enqueue all the characters of string s to stack
+for i in range(l):
+    obj.pushCharacter(s[i])
+    obj.enqueueCharacter(s[i])
+    
+isPalindrome=True
+'''
+pop the top character from stack
+dequeue the first character from queue
+compare both the characters
+''' 
+for i in range(l // 2):
+    if obj.popCharacter()!=obj.dequeueCharacter():
+        isPalindrome=False
+        break
+#finally print whether string s is palindrome or not.
+if isPalindrome:
+    print("The word, "+s+", is a palindrome.")
+else:
+    print("The word, "+s+", is not a palindrome.") 
+
+
+
+
+# Day 19: Interfaces
+class AdvancedArithmetic(object):
+    def divisorSum(n):
+        raise NotImplementedError
+
+class Calculator(AdvancedArithmetic):
+    def divisorSum(self, n):
+        factor_sum =  0
+        for i in range(1, n + 1):
+            if n % i == 0:
+                factor_sum += i
+        return factor_sum
+
+n = int(input())
+my_calculator = Calculator()
+s = my_calculator.divisorSum(n)
+print("I implemented: " + type(my_calculator).__bases__[0].__name__)
+print(s)
+
+
+
+
+# Day 20: Sorting
+import sys
+
+n = int(input().strip())
+a = list(map(int, input().strip().split(' ')))
+# Write Your Code Here
+num_swap = 0
+
+while a != sorted(a):
+    for i in range(n - 1):
+        tmp = 0
+        if a[i] > a[i + 1]:
+            tmp = a[i]
+            a[i] = a[i + 1]
+            a[i + 1] = tmp
+            num_swap += 1
+
+print('Array is sorted in {} swaps.'.format(num_swap))
+print('First Element:', a[0])
+print('Last Element:', a[-1])
+
+
+
+
+# Day 21: Generics
+#include <iostream>
+#include <vector>
+#include <string>
+
+using namespace std;
+
+/**
+*    Name: printArray
+*    Print each element of the generic vector on a new line. Do not return anything.
+*    @param A generic vector
+**/
+
+// Write your code here
+template <typename T>
+void printArray(vector<T> v)
+{
+    for(T t : v)
+        cout << t << endl;
+}
+
+int main() {
+	int n;
+	
+	cin >> n;
+	vector<int> int_vector(n);
+	for (int i = 0; i < n; i++) {
+		int value;
+		cin >> value;
+		int_vector[i] = value;
+	}
+	
+	cin >> n;
+	vector<string> string_vector(n);
+	for (int i = 0; i < n; i++) {
+		string value;
+		cin >> value;
+		string_vector[i] = value;
+	}
+
+	printArray<int>(int_vector);
+	printArray<string>(string_vector);
+
+	return 0;
+}
+
+
+
+
+# Day 22: Binary Search Trees
+class Node:
+    def __init__(self,data):
+        self.right=self.left=None
+        self.data = data
+class Solution:
+    def insert(self,root,data):
+        if root==None:
+            return Node(data)
+        else:
+            if data<=root.data:
+                cur=self.insert(root.left,data)
+                root.left=cur
+            else:
+                cur=self.insert(root.right,data)
+                root.right=cur
+        return root
+
+    def getHeight(self,root):
+        #Write your code here
+        if root == None:
+            return -1 
+        return 1 + max(self.getHeight(root.left), self.getHeight(root.right))
+
+T=int(input())
+myTree=Solution()
+root=None
+for i in range(T):
+    data=int(input())
+    root=myTree.insert(root,data)
+height=myTree.getHeight(root)
+print(height)     
+
+
+
+
+# Day 23: BST Level-Order Traversal
+import sys
+
+class Node:
+    def __init__(self,data):
+        self.right=self.left=None
+        self.data = data
+class Solution:
+    def insert(self,root,data):
+        if root==None:
+            return Node(data)
+        else:
+            if data<=root.data:
+                cur=self.insert(root.left,data)
+                root.left=cur
+            else:
+                cur=self.insert(root.right,data)
+                root.right=cur
+        return root
+
+    def levelOrder(self,root):
+        #Write your code here
+        queue = [root] if root else []
+        while queue:
+            node = queue.pop()
+            print(node.data, end=" ")
+            if node.left:
+                queue.insert(0, node.left)
+            if node.right:
+                queue.insert(0, node.right)
+
+T=int(input())
+myTree=Solution()
+root=None
+for i in range(T):
+    data=int(input())
+    root=myTree.insert(root,data)
+myTree.levelOrder(root)
+
+
+
+
+# Day 24: More Linked Lists
+class Node:
+    def __init__(self,data):
+        self.data = data
+        self.next = None 
+class Solution: 
+    def insert(self,head,data):
+            p = Node(data)           
+            if head==None:
+                head=p
+            elif head.next==None:
+                head.next=p
+            else:
+                start=head
+                while(start.next!=None):
+                    start=start.next
+                start.next=p
+            return head  
+    def display(self,head):
+        current = head
+        while current:
+            print(current.data,end=' ')
+            current = current.next
+
+    def removeDuplicates(self,head):
+        #Write your code here
+        curr = head
+        while curr.next:
+            if curr.data == curr.next.data:
+                curr.next = curr.next.next
+            else:
+                curr = curr.next
+        return head
+
+mylist= Solution()
+T=int(input())
+head=None
+for i in range(T):
+    data=int(input())
+    head=mylist.insert(head,data)    
+head=mylist.removeDuplicates(head)
+mylist.display(head); 
+
+
+
+
+# Day 25: Running Time and Complexity
+"""
+If a number x is divisable by another number less or equal to the square root of x... it is NOT prime. That is the reason for O(sqrt(n)) run time.
+"""
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+def is_prime(n):
+    if n==2:
+        return 'Prime'
+    elif n==1 or n%2==0:   # 1 or any even number
+        return 'Not prime'
+    # iterate through for all odd numbers from 3 to int(square root of n)
+    for i in range(3, int(n**0.5) + 1, 2):    # 2 step increment, even numbers are not prime
+        if n%i==0:
+            return 'Not prime'
+    return 'Prime'
+
+T = int(input())
+for _ in range(T):
+    n = int(input())
+    print(is_prime(n))
+
+
+
+
+# Day 26: Nested Logic
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+d1, m1, y1 = map(int, input().split())
+d2, m2, y2 = map(int, input().split())
+
+if y1 > y2:
+    print(10000)
+elif m1>m2 and y1==y2:
+    print((m1-m2) * 500)
+elif d1>d2 and m1==m2 and y1==y2:
+    print((d1-d2) * 15)
+else:
+    print(0)
+
+
+
+
+# Day 27: Testing
+def minimum_index(seq):
+    if len(seq) == 0:
+        raise ValueError("Cannot get the minimum value index from an empty sequence")
+    min_idx = 0
+    for i in range(1, len(seq)):
+        if seq[i] < seq[min_idx]:
+            min_idx = i
+    return min_idx
+
+class TestDataEmptyArray(object):
+    
+    @staticmethod
+    def get_array():
+        # complete this function
+        return []
+
+class TestDataUniqueValues(object):
+
+    @staticmethod
+    def get_array():
+        # complete this function
+        return [1, 2, 3, -4, 5]
+
+    @staticmethod
+    def get_expected_result():
+        # complete this function
+        return 3
+
+class TestDataExactlyTwoDifferentMinimums(object):
+
+    @staticmethod
+    def get_array():
+        # complete this function
+        return [1, -3, 2, 57, -3]
+
+    @staticmethod
+    def get_expected_result():
+        # complete this function
+        return 1
+
+def TestWithEmptyArray():
+    try:
+        seq = TestDataEmptyArray.get_array()
+        result = minimum_index(seq)
+    except ValueError as e:
+        pass
+    else:
+        assert False
+
+def TestWithUniqueValues():
+    seq = TestDataUniqueValues.get_array()
+    assert len(seq) >= 2
+
+    assert len(list(set(seq))) == len(seq)
+
+    expected_result = TestDataUniqueValues.get_expected_result()
+    result = minimum_index(seq)
+    assert result == expected_result
+
+
+def TestiWithExactyTwoDifferentMinimums():
+    seq = TestDataExactlyTwoDifferentMinimums.get_array()
+    assert len(seq) >= 2
+    tmp = sorted(seq)
+    assert tmp[0] == tmp[1] and (len(tmp) == 2 or tmp[1] < tmp[2])
+
+    expected_result = TestDataExactlyTwoDifferentMinimums.get_expected_result()
+    result = minimum_index(seq)
+    assert result == expected_result
+
+TestWithEmptyArray()
+TestWithUniqueValues()
+TestiWithExactyTwoDifferentMinimums()
+print("OK")
+
+
+
+
+# Day 28: RegEx, Patterns, and Intro to Databases
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    name_list = []
+    N = int(input())
+    for _ in range(N):
+        firstNameEmailID = input().split()
+        firstName = firstNameEmailID[0]
+        emailID = firstNameEmailID[1]
+        
+        if emailID[-10:] == '@gmail.com':
+            name_list.append(firstName)
+
+    for e in sorted(name_list):
+        print(e)
+
+
+
+
+# Day 29: Bitwise AND
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    t = int(input())
+    for _ in range(t):
+        nk = input().split()
+        n = int(nk[0])
+        k = int(nk[1])
+        print(k-1 if ((k-1) | k) <= n else k-2)
+
+
+
+
+## end ##

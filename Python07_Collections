@@ -1,0 +1,295 @@
+## Python
+## Collections
+
+
+## collections.Counter()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option with Counter
+# from collections import Counter
+# X = int(input())
+# input_list = list(map(int, input().split()))
+# sizes_counter = Counter(input_list)
+# N = int(input())
+# sales = 0
+# for _ in range(N):
+#     size, price = map(int, input().split())
+#     if sizes_counter[size] > 0:
+#         sales += price
+#         sizes_counter[size] -= 1
+# print(sales)
+
+# Option without Counter
+X = int(input())
+sizes_list = list(map(int, input().split()))
+N = int(input())
+sales = 0
+for _ in range(N):
+    size, price = map(int, input().split())
+    if size in sizes_list:
+        sales += price
+        sizes_list.remove(size)
+print(sales)
+
+
+## DefaultDict Tutorial
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import defaultdict
+# n, m = map(int, input().split())
+# A = defaultdict(list)
+# for i in range(n):
+#     A[input()].append(i+1)
+# B = [input() for _ in range(m)]
+# [print(*A.get(letter, [-1])) for letter in B]
+
+# # Option 2
+# from collections import defaultdict
+# A = defaultdict(list)
+# B = []
+# n, m = map(int, input().split())
+# for i in range(n):
+#     A[input()].append(i+1) 
+# for _ in range(m):
+#     B.append(input())    # or B += [input()]
+# for word in B:
+#     if word in A:
+#         print(' '.join( map(str, A[word]) ))
+#     else:
+#         print(-1)
+
+# Option 3
+from collections import defaultdict
+A = defaultdict(list)
+n, m = map(int, input().split())
+for i in range(n):
+    A[input()].append(i+1) 
+for _ in range(m):
+    word = input()
+    if word in A: 
+        print(' '.join( map(str, A[word]) ))
+    else: 
+        print(-1)
+
+# # Option 4
+# from collections import defaultdict
+# n, m = map(int, input().split())
+# A = defaultdict(lambda: -1)
+# for i in range(1, n+1): 
+#     word = input()
+#     A[word] = A[word] + ' ' + str(i) if word in A else str(i)
+# for _ in range(m):
+#     print(A[input()])
+
+
+## Collections.namedtuple()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import namedtuple
+# n = int(input())
+# Report = namedtuple('Report', input())
+# reports = [Report(*input().split()) for _ in range(n)]
+# print(sum([int(e.MARKS) for e in reports])/n)
+
+# # Option 2
+# from collections import namedtuple
+# n = int(input())
+# categories = input().split()
+# Report = namedtuple('Report', categories)
+# marks = [int(Report._make(input().split()).MARKS) for x in range(n)]
+# print('{: 0.2F}'.format( sum(marks)/len(marks) ))
+
+# Option 3
+from collections import namedtuple
+n = int(input())
+Report = namedtuple('Report', input().split())
+total = 0
+for _ in range(n):
+    total += int(Report(*input().split()).MARKS)
+print(total/n)
+
+# # Option 4 (1 line)
+# import collections, statistics
+# print('%.2f' % statistics.mean(next((int(student(*row).MARKS) for row in (input().split() for i in range(size))) for size, student in [[int(input()), collections.namedtuple('Report', input())]])))
+
+
+## Collections.OrderedDict()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import OrderedDict
+# D = OrderedDict()
+# for _ in range(int(input())):
+#     item, space, price = input().rpartition(' ')
+#     D[item] = D.get(item, 0) + int(price)
+# for item, price in D.items():
+#     print(item, price)
+
+# # Option 2
+# from collections import OrderedDict
+# D = OrderedDict()
+# for _ in range(int(input())):
+#     item, space, price = input().rpartition(' ')
+#     D[item] = D.get(item, 0) + int(price)
+# print(*[' '.join([item, str(price)]) for item, price in D.items()], sep='\n')
+
+# Option 3 (latest python dictionary is default ordered)
+store_item = dict()
+for _ in range(int(input())):
+    key, _, value = input().rpartition(" ")
+    store_item[key] = store_item.get(key, 0) + int(value)
+for k, v in store_item.items():
+    print(k, v)
+
+
+## Word Order
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import defaultdict
+# n = int(input())
+# words_dict = defaultdict(int)
+# for _ in range(n):
+#     key = input()
+#     words_dict[key] += 1
+# print(len(words_dict.keys())) 
+# print(*words_dict.values())
+
+# # Option 2
+# from collections import OrderedDict
+# words_dict = OrderedDict()
+# for i in range(int(input())):
+#     key = input()
+#     if not key in words_dict.keys():
+#         words_dict.update({key: 1})
+#     else:
+#         words_dict[key] += 1
+# print(len(words_dict.keys()))
+# print(*words_dict.values())
+
+# # Option 3
+# from collections import Counter
+# input_list = []
+# for _ in range(int(input())):
+#     input_list.extend((input().split('\n')))
+# freq = Counter(input_list)
+# print(len(freq))
+# for key in freq:
+#     print(freq.get(key), end=' ')
+
+# # Option 4
+# from collections import Counter
+# input_list = []
+# for _ in range(int(input())):
+#     input_list.append(input())
+# print(len(set(input_list)))
+# # print(*list(Counter(input_list).values()), sep=' ')    #same
+# print(' '.join([str(v) for k, v in Counter(input_list).items()]))
+
+# Option 5 (without library)
+words = dict()
+for _ in range(int(input())):
+    word = input()
+    words[word] = words.get(word, 0) + 1 
+print(len(words))
+print(*(word for word in words.values()))
+
+
+## Collections.deque()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import deque
+# d = deque()
+# for _ in range(int(input())):
+#     inp = input().split()
+#     getattr(d, inp[0])(*[inp[1]] if len(inp) > 1 else '')
+# print(*[item for item in d])
+
+# # Option 2
+# from collections import deque
+# d = deque()
+# for _ in range(int(input())):
+#     com = input().split() + ['']
+#     eval( f'd.{com[0]} ({com[1]})' )
+# print(*d)
+
+# Option 3
+from collections import deque
+d = deque()
+for _ in range(int(input())):
+    oper, val, *args = input().split() + ['']
+    eval( f'd.{oper} ({val})' )
+print(*d)
+
+
+## Company Logo
+import math
+import os
+import random
+import re
+import sys
+
+if __name__ == '__main__':
+    s = input()
+    
+    # # Option 1
+    # from collections import Counter
+    # [print(*c) for c in Counter(sorted(s)).most_common(3)]
+    
+    # # Option 2
+    # from collections import Counter
+    # for c in Counter(sorted(s)).most_common(3): 
+    #     print(*c)
+
+    # Option 3
+    from collections import Counter
+    s = sorted(s)
+    freq = Counter(list(s))
+    for k,v in freq.most_common(3):
+        print(k,v)
+
+
+## Piling Up!
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+# # Option 1
+# from collections import deque
+# for _ in range(int(input())):
+#     result = 'Yes'
+#     D = deque()
+#     N = int(input())
+#     l = list(map(int, input().split()))
+#     D.extend(l)
+#     l.sort(reverse=True)
+#     for i in range(N):
+#         right = D.pop()
+#         if i<N-1:
+#             left = D.popleft()
+#         if l[i] == left:
+#             D.append(right)
+#             continue
+#         elif l[i] == right:
+#             D.appendleft(left)
+#             continue
+#         else:
+#             result = 'No'
+#             break
+#     print(result)
+
+# Option 2
+for t in range(int(input())):
+    input()
+    lst = list(map(int, input().split()))
+    l = len(lst)
+    i = 0
+    while i < l - 1 and lst[i] >= lst[i+1]:
+        i += 1
+    while i < l - 1 and lst[i] <= lst[i+1]:
+        i += 1
+    print('Yes' if i == l - 1 else 'No')
+    
+
+## end ##

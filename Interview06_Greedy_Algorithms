@@ -1,0 +1,253 @@
+## Interview Preparation Kit
+## Greedy Algorithms
+
+
+
+
+## Minimum Absolute Difference in an Array
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the minimumAbsoluteDifference function below.
+def minimumAbsoluteDifference(arr):
+    arr = sorted(arr)
+    min_values = []
+    for i in range(len(arr)-1):
+        diff = arr[i+1] - arr[i]
+        min_values.append(diff)
+    return min(min_values)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    arr = list(map(int, input().rstrip().split()))
+    result = minimumAbsoluteDifference(arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Luck Balance
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the luckBalance function below.
+# Option 1
+def luckBalance(k, contests):
+    contests.sort(reverse=True)
+    luck = 0
+    for contest in contests:
+        if contest[1] == 0:
+            luck += contest[0]
+        elif k > 0:
+            luck += contest[0]
+            k -= 1
+        else:
+            luck -= contest[0]
+    return luck
+
+# Option 2
+def luckBalance(k, contests):
+    contests.sort(reverse=True)
+    luck = 0
+    for pts, imp in contests:
+        if k > 0 or not imp:
+            luck += pts
+            k -= imp
+        else:
+            luck -= pts
+    return luck
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    contests = []
+    for _ in range(n):
+        contests.append(list(map(int, input().rstrip().split())))
+    result = luckBalance(k, contests)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Greedy Florist
+"""
+We first sort the given list of prices of flowers.
+
+Consider a case where n = 10 flowers, and cost c = [1,2,3,4] and k = 4 friends. Then first we consider flower [1,2,3,4] for orignal price. Next we have to buy 4 more that is [1,2,3,4] at twice the price. Next we have to buy 2 more, for these we have to consider the lowest priced flower that is [1,2] for thrice the price.
+
+Now same logic we apply by repeating the array c by total_loop (how many time all the flowers can be considered). For example in the previous example we make c as [1,2,3,4,1,2,3,4]. Now the remaining two lowest priced flowers are added at the front of this array as, [1,2,1,2,3,4,1,2,3,4]. Once we have this array, we start with last k elements, sum them and then multiply them with the current purchase 'p'.
+"""
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the getMinimumCost function below.
+def getMinimumCost(k, c):
+    c.sort()
+    l = len(c)
+    total_loop = n//l       # total number of complete loops
+    last_elements = n%l     # number of remaining flowers
+    c = c[:last_elements] + c*total_loop    # explained above
+    p = 1                                   # count of purchases
+    i = 1
+    result = 0
+    while (l - (i-1)*k >= 0):
+        result += sum(c[max(l-i*k,0):l-(i-1)*k])*p  
+        i += 1
+        p += 1
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    nk = input().split()
+    n = int(nk[0])
+    k = int(nk[1])
+    c = list(map(int, input().rstrip().split()))
+    minimumCost = getMinimumCost(k, c)
+    fptr.write(str(minimumCost) + '\n')
+    fptr.close()
+
+
+
+
+# Max Min
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the maxMin function below.
+def maxMin(k, arr):
+    arr.sort()
+    result = float('inf')   # the number infinity 
+    for i in range(n-k+1):
+        unfairness = arr[i+k-1] - arr[i]
+        if unfairness < result:
+            result = unfairness
+    return result
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    n = int(input())
+    k = int(input())
+    arr = []
+    for _ in range(n):
+        arr_item = int(input())
+        arr.append(arr_item)
+    result = maxMin(k, arr)
+    fptr.write(str(result) + '\n')
+    fptr.close()
+
+
+
+
+## Reverse Shuffle Merge
+#!/bin/python3
+import math
+import os
+import random
+import re
+import sys
+
+# Complete the reverseShuffleMerge function below.
+# Option 1
+from collections import Counter
+def reverseShuffleMerge(s):
+    left = Counter(s)
+    keep = {char: int(freq / 2) for char, freq in left.items()}
+    shuffle = {char: int(freq / 2) for char, freq in left.items()}
+    result = []
+    for char in reversed(s):
+        if keep[char] > 0:
+            while result and result[-1] > char and shuffle[result[-1]] > 0:
+                removed = result.pop()
+                keep[removed] += 1
+                shuffle[removed] -= 1
+            result.append(char)
+            keep[char] -= 1
+        else:
+            shuffle[char] -= 1
+    return (''.join(result))
+
+# Option 2
+from collections import Counter
+def reverseShuffleMerge(s):
+    cnt = Counter(s)
+    req = Counter({k:v // 2 for k,v in cnt.items()})
+    rs = s[::-1]
+    ic = ord('a')
+    imax = ord('z') + 1
+    pos = -1
+    ans = ''
+    while ic < imax:
+        c = chr(ic)
+        if c not in list(+req):
+            ic += 1
+            continue
+        i = rs.find(c,pos + 1)
+        if len(+(req - Counter(rs[i:]))) > 0:
+            #not enough characters behind, find bigger character
+            ic += 1
+        else:
+            #there are enough characters behind
+            ans += c
+            pos = i     #new position to find
+            req[c] -= 1 #reduct request
+            ic = ord('a')   #find from a to z
+            if len(+req) == 0:  #find all
+                return ans
+        if ic >= imax:
+            ic -= 26
+
+# Option 3
+def reverseShuffleMerge(s):
+    cnt = {}
+    for char in s:
+        cnt[char] = cnt.get(char, 0)+1
+    freq = {}
+    used = {}
+    for char, val in cnt.items():
+        used[char] = used.get(char, 0)
+        freq[char] = freq.get(char, 0) + int(cnt[char]/2)
+    A = [s[-1]]
+    cnt[s[-1]] -= 1
+    used[s[-1]] += 1
+    for char in s[:-1][::-1]:
+        cnt[char]-=1
+        if used[char] >= freq[char]:
+            continue
+        while A and char < A[-1] and cnt[A[-1]]>freq[A[-1]]-used[A[-1]]:
+            used[A.pop()]-=1
+        A.append(char)
+        used[char]+=1
+    return ''.join(A)
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+    s = input()
+    result = reverseShuffleMerge(s)
+    fptr.write(result + '\n')
+    fptr.close()
+
+
+
+
+## end ##

@@ -1,0 +1,183 @@
+## Python
+## Sets
+
+
+## Introdduction to Sets
+def average(array):
+    # your code goes here
+    array_set = set(array)
+    return sum(array_set) / len(array_set)
+
+if __name__ == '__main__':
+    n = int(input())
+    arr = list(map(int, input().split()))
+    result = average(arr)
+    print(result)
+
+
+## No Idea!
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+(n, m), arr_list, A, B = [input().split() for _ in range(4)]
+
+A, B = set(A), set(B)   # for time efficiency
+happiness = 0
+for i in arr_list:
+    if i in A:
+        happiness += 1
+    elif i in B:
+        happiness -= 1
+print(happiness)
+
+
+##  Symmetric Difference
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+m = int(input())
+set_m = set(map(int, input().split()))
+
+n = int(input())
+set_n = set(map(int, input().split()))
+
+new_set = set_m.difference(set_n)
+temp = set_n.difference(set_m)
+
+new_set.update(temp)
+new_set = sorted(new_set)
+
+for e in new_set:
+    print(e)
+
+
+## Set .add()
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+countries = set()
+for _ in range(n):
+    countries.add(input())
+    
+print(len(countries))
+
+
+##  Set .discard(), .remove() & .pop()
+n = int(input())
+s = set(map(int, input().split()))
+N = int(input())
+
+for _ in range(N):
+    command = input().split()
+    if command[0] == 'pop':
+        s.pop()
+    elif command[0] == 'remove':
+        s.remove(int(command[1]))
+    elif command[0] == 'discard':
+        s.discard(int(command[1]))
+
+total = sum(s)
+print(total)
+
+
+## Set .union() Operation
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+set_n = set(map(int, input().split()))
+
+b = int(input())
+set_b = set(map(int, input().split()))
+
+new_set = set_n.union(set_b)
+print(len(new_set))
+
+
+## Set .intersection() Operation
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+set_n = set(map(int, input().split()))
+
+b = int(input())
+set_b = set(map(int, input().split()))
+
+new_set = set_n.intersection(set_b)
+print(len(new_set))
+
+
+## Set .difference() Operation
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+set_n = set(map(int, input().split()))
+
+b = int(input())
+set_b = set(map(int, input().split()))
+
+new_set = set_n.difference(set_b)
+print(len(new_set))
+
+
+## Set .symmetric_difference() Operation
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+set_n = set(map(int, input().split()))
+
+b = int(input())
+set_b = set(map(int, input().split()))
+
+new_set = set_n.difference(set_b)
+temp = set_b.difference(set_n)
+
+new_set.update(temp)
+print(len(new_set))
+
+
+## Set Mutations
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+n = int(input())
+set_A = set(map(int,input().split()))
+N = int(input())
+
+for _ in range(N):
+    operation = input().split()
+    new_set = set(map(int,input().split()))
+    eval('set_A.{}({})'.format(operation[0], new_set))
+print(sum(set_A))
+
+
+## The Captain's Room
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+from collections import Counter 
+n = int(input())
+room_list = list(map(int, input().split()))
+freq = Counter(room_list)
+
+for room in freq.keys():
+    if freq[room] == 1:
+        print(room)
+        break
+
+
+## Check Subset
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+N = int(input())
+
+for _ in range(N):
+    n1 = int(input())
+    set_a = set(map(int, input().split()))
+    n2 = int(input())
+    set_b = set(map(int, input().split()))
+
+    print(set_a.intersection(set_b) == set_a)
+
+
+## Check Strict Superset
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+set_a = set(map(int, input().split()))
+N = int(input())
+
+for _ in range(N):
+    new_set = set(map(int, input().split()))
+    if (new_set < set_a):
+        continue
+    else:
+        break
+
+print(new_set < set_a)
+
+
+## end ##
